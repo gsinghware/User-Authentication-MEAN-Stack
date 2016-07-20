@@ -1,25 +1,35 @@
 /**
  * Register Controller
  */
-app.controller('registerController', ['$scope','$location', function($scope, $location) {
+app.controller('registerController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
     var viewModel = this;
 
     viewModel.register = function() {
-        console.log(viewModel.data);
-    };
+        userFactory.registerUser(viewModel.data).then(function (response) {
+            if (response.data.success) {
 
+            } else {
+                
+            }
+        });
+    };
 }]);
 
 /**
  * Login Controller
  */
-app.controller('loginController', ['$scope','$location', function($scope, $location) {
+app.controller('loginController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
     var viewModel = this;
 
     viewModel.login = function() {
-        console.log(viewModel.data);
-    };
+        userFactory.registerUser(viewModel.data).then(function (response) {
+            if (response.data.success) {
 
+            } else {
+                
+            }
+        });
+    };
 }]);
 
 /**

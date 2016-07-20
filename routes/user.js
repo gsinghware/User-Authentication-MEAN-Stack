@@ -3,6 +3,26 @@ module.exports = function (express) {
     var api = express.Router();
 
     /**
+     * GET register
+     */
+    api.get('/register', function (request, response) {
+        if (response.user)
+            return response.redirect('/');
+        response.render('index');
+    });
+
+    /**
+     * POST register
+     */
+    api.post('/register', function (request, response) {
+        console.log('posting to register user...');
+
+        response.json({ success: true,
+                        message: "Successfully login!"
+					});
+    });
+
+    /**
      * GET login
      */
     api.get('/login', function (request, response) {
@@ -18,14 +38,6 @@ module.exports = function (express) {
         
     });
 
-    /**
-     * GET register
-     */
-    api.get('/register', function (request, response) {
-        if (response.user)
-            return response.redirect('/');
-        response.render('index');
-    });
 
     /**
      * GET profile
