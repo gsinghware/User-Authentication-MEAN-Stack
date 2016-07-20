@@ -1,0 +1,1 @@
+var app=angular.module("UserAuth",["ngRoute"]);app.config(["$routeProvider","$locationProvider",function(e,o){e.when("/",{title:"Home",templateUrl:"partials/home.ejs"}),o.html5Mode({enabled:!0,requireBase:!0})}]);
