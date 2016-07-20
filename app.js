@@ -21,8 +21,11 @@ app.set('view engine', 'ejs');                          // EJS view engine allow
 /**
  * routes (POST/GET)
  */
-app.get('*', function(request, response) {
-    response.render('index.ejs');
+var userRoutes = require('./routes/user.js')(express);  // user api routes
+app.use('/user', userRoutes);
+
+app.get('*', function(request, response) {              // everything gets rendered on the index page
+    response.render('index');
 });
 
 /**

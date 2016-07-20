@@ -9,7 +9,8 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
 
     $routeProvider.when('/', {title : 'Home', templateUrl: 'partials/home.ejs' });
     $routeProvider.when('/user/login', {title : 'Login', templateUrl: 'partials/login.ejs' });
-    $routeProvider.when('/user/register', {title : 'Home', templateUrl: 'partials/register.ejs' });
+    $routeProvider.when('/user/register', {title : 'Register', templateUrl: 'partials/register.ejs' });
+    $routeProvider.when('/user/profile', {templateUrl: 'partials/profile.ejs'});
     $routeProvider.when('/404', {templateUrl: 'partials/404.ejs'});
     $routeProvider.otherwise('/404');
 

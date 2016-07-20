@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" ng-controller="loginController as loginCtrl">
     <div class="row">
         <div class="col-md-4">
 
@@ -21,15 +21,23 @@
 
                     <hr>
 
-                    <form method="POST" role="form" name="userForm" novalidate>
+                    <form method="POST" role="form" name="userForm" ng-submit="userForm.$valid && loginController.login()" novalidate="">
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" required>
-                            <p ng-show="userForm.username.$error.minlength">Username is too short.</p>
-                            <p ng-show="userForm.username.$error.maxlength">Username is too Long.</p>
-                            <p ng-show="userForm.username.$error.pattern">Username must only contain alphanumerics or an underscore</p>
-                            ---
-                            <input type="password" class="form-control" name="password" placeholder="Password" minlength="6" required>
+                            <input ng-model="loginController.data.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
+                            <div ng-show="userForm.$submitted || userForm.username.$touched">
+                                <p ng-show="userForm.username.$error.required">Username is required. (3-15)</p>
+                                <p ng-show="userForm.username.$error.minlength">Username is too short. (3-15)</p>
+                                <p ng-show="userForm.username.$error.maxlength">Username is too Long. (3-15)</p>
+                                <p ng-show="userForm.username.$error.pattern">Username must only contain alphanumerics or an underscore</p>
+                            </div>
+                            
+                            <input ng-model="loginController.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
+                            <div ng-show="userForm.$submitted || userForm.password.$touched">
+                                <p ng-show="userForm.password.$error.required">Password is required.</p>
+                                <p ng-show="userForm.password.$error.minlength">Password must be 6 or more characters long.</p>
+                            </div>
+
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit</button>
