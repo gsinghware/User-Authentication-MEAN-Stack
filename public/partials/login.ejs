@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+
+            <div class="panel panel-default">
+                
+                <div class="panel-heading">
+                    <h3 class="panel-title">Login</h3>
+                </div>
+                
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            Login with Facebook
+                        </div>
+                        <div class="col-md-6">
+                            Login with Twitter
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <form method="POST" role="form" name="userForm" novalidate>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" required>
+                            <p ng-show="userForm.username.$error.minlength">Username is too short.</p>
+                            <p ng-show="userForm.username.$error.maxlength">Username is too Long.</p>
+                            <p ng-show="userForm.username.$error.pattern">Username must only contain alphanumerics or an underscore</p>
+                            ---
+                            <input type="password" class="form-control" name="password" placeholder="Password" minlength="6" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

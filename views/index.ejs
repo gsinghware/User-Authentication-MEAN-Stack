@@ -6,9 +6,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Title Page</title>
-
+        
         <!-- Bootstrap CSS -->
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/stylesheets/main.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,7 +19,7 @@
         <![endif]-->
     </head>
     
-    <body>
+    <body ng-controller="mainController as mainCtrl">
         
         <nav class="navbar navbar-default" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -36,9 +37,9 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li ng-class="{ active: mainCtrl.isActive('/')}"><a href="/">Home</a></li>
+                    <li ng-class="{ active: mainCtrl.isActive('/user/login')}"><a href="/user/login">Login</a></li>
+                    <li ng-class="{ active: mainCtrl.isActive('/user/register')}"><a href="/user/register">Register</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -54,12 +55,11 @@
         </nav>
 
         <div ng-view></div>
-
         <!-- jQuery -->
-        <!--<script src="//code.jquery.com/jquery.js"></script>-->
+        <script src="//code.jquery.com/jquery.js"></script>
         
         <!-- Bootstrap JavaScript -->
-        <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         
         <!-- Angualr.js -->
         <script src="/js/vendor/angular/angular.min.js"></script>
@@ -69,7 +69,7 @@
         <script src="/js/app.js"></script>
 
         <!-- Controllers -->
-        <!--<script src="/js/controllers/appControllers.js"></script>-->
-
+        <script src="/js/controllers/appController.js"></script>
+        
     </body>
 </html>

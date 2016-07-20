@@ -14,7 +14,7 @@ gulp.task('clean', function() {
 
 gulp.task('build-js', function() {
     return gulp.src(appDev + '**/*.js')
-                .pipe(uglify())
+                // .pipe(uglify())
                 .pipe(gulp.dest(appProd)); 
 });
 
@@ -42,7 +42,7 @@ gulp.task('vendor', function() {
 
 gulp.task('watch', function () {
     gulp.watch(appDev + '**/*.js', ['build-js']);
-    gulp.watch(appDev + '**/*.html', ['build-ejs']); 
+    gulp.watch(appDev + '**/*.ejs', ['build-ejs']); 
     gulp.watch(appDev + '**/*.scss', ['build-sass']); 
 });
 
