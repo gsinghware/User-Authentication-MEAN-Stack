@@ -1,0 +1,24 @@
+{
+  "name": "user-auth-mean-stack",
+  "version": "1.0.0",
+  "description": "login registration system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gsinghware/User-Authentication-MEAN-Stack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gsinghware/User-Authentication-MEAN-Stack/issues"
+  },
+  "homepage": "https://github.com/gsinghware/User-Authentication-MEAN-Stack#readme",
+  "devDependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
+}
