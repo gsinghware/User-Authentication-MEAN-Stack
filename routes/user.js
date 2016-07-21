@@ -15,11 +15,7 @@ module.exports = function (express) {
      * POST register
      */
     api.post('/register', function (request, response) {
-        console.log('posting to register user...');
-
-        response.json({ success: true,
-                        message: "Successfully login!"
-					});
+        
     });
 
     /**

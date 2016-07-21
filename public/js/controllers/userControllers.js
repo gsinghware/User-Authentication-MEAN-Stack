@@ -6,6 +6,7 @@ app.controller('registerController', ['$scope','$location', 'userFactory', funct
 
     viewModel.register = function() {
         userFactory.registerUser(viewModel.data).then(function (response) {
+            console.log(response);
             if (response.data.success) {
 
             } else {
@@ -22,7 +23,7 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
     var viewModel = this;
 
     viewModel.login = function() {
-        userFactory.registerUser(viewModel.data).then(function (response) {
+        userFactory.loginUser(viewModel.data).then(function (response) {
             if (response.data.success) {
 
             } else {
