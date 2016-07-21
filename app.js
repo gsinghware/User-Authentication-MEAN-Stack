@@ -6,6 +6,7 @@ var morgan      = require('morgan');                    // request/response logg
 var bodyParser  = require('body-parser');               // populates request.body with the value of the POST parameters
 var mongoose    = require('mongoose');                  // MongoDB object modeling tool
 var config      = require('./config/database');         // get the db config file
+var passport	= require('passport');                  // middleware for user authentication
 
 var port = process.env.PORT || 3000;
 
@@ -17,6 +18,7 @@ app.use(morgan('dev'));                                 // dev for displaying mi
 app.use(express.static(__dirname + '/public'));         // static middleware handles serving up the content (JS, HTML, CSS) from public dir
 app.use(bodyParser.json());                             // json format for the parameters (key-value pairs)
 app.use(bodyParser.urlencoded({ extended: true }));     // allow value to be any type
+app.use(passport.initialize());                         // use the passport package in our application
 
 /**
  * database connection
@@ -35,8 +37,8 @@ app.set('view engine', 'ejs');                          // EJS view engine allow
 /**
  * routes (POST/GET)
  */
-var userRoutes = require('./routes/user.js')(express);  // user api routes
-app.use('/user', userRoutes);                           // /user/* goes through user routes, ie. user/login, user/register
+var userRoutes = require('./routes/user.js')(express, passport);    // user api routes
+app.use('/user', userRoutes);                                       // url: /user/* goes through user routes, ie. user/login, user/register
 
 app.get('*', function(request, response) {              // everything gets rendered on the index page
     response.render('index');

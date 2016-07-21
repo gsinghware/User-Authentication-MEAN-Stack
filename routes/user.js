@@ -1,4 +1,8 @@
-module.exports = function (express) {
+var User = require('../models/user');
+
+module.exports = function (express, passport) {
+
+    require('../config/passport')(passport);
 
     var api = express.Router();
 
@@ -15,7 +19,35 @@ module.exports = function (express) {
      * POST register
      */
     api.post('/register', function (request, response) {
-        
+
+        User.findOne({ $or: [{ 'local.username': request.body.username },
+                             { 'local.email': request.body.email }] }, function (error, user) {
+            
+            if (error) return handleError(error);
+
+            if (user) {
+                if ( user.local.username == request.body.username && user.local.email != request.body.email ) {
+                    response.json({ Error: 'Username is already in use'});
+                } else if ( user.local.username != request.body.username && user.local.email == request.body.email ) {
+                    response.json({ Error: 'Email is already in use'});
+                } else if ( user.local.username == request.body.username && user.local.email == request.body.email ) {
+                    response.json({ Error: 'Both Username and Email are already in use'});
+                }
+            } else {
+                var user = new User({
+                    'local.username': request.body.username,
+                    'local.password': request.body.password,
+                    'local.email': request.body.email
+                });
+                user.save(function (error) {
+                    if (error) {
+                        response.send(error);
+                        return;
+                    }
+                    response.json({ message: 'New user has been created'});
+                });
+            }
+        });
     });
 
     /**
