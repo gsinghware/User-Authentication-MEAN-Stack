@@ -1,11 +1,13 @@
 /**
  * module dependencies
  */
-var express = require('express');                       // node js framework
-var config = require('./config');                       // application configurations
-var morgan = require('morgan');                         // request/response logger in terminal
-var bodyParser = require('body-parser');                // populates request.body with the value of the POST parameters
-var mongoose = require('mongoose');                     // MongoDB object modeling tool
+var express     = require('express');                   // node js framework
+var morgan      = require('morgan');                    // request/response logger in terminal
+var bodyParser  = require('body-parser');               // populates request.body with the value of the POST parameters
+var mongoose    = require('mongoose');                  // MongoDB object modeling tool
+var config      = require('./config/database');         // get the db config file
+
+var port = process.env.PORT || 3000;
 
 /**
  * express configuration
@@ -43,7 +45,7 @@ app.get('*', function(request, response) {              // everything gets rende
 /**
  * server
  */
-app.listen(config.port, function(error) {
+app.listen(port, function(error) {
     if (error) console.log(error);
     else console.log('Listening on port 3000');
 });
