@@ -21,10 +21,10 @@
 
                     <hr>
 
-                    <form method="POST" role="form" name="userForm" ng-submit="userForm.$valid && loginController.login()" novalidate="">
+                    <form method="POST" role="form" name="userForm" ng-submit="userForm.$valid && loginCtrl.login()" novalidate="">
 
                         <div class="form-group">
-                            <input ng-model="loginController.data.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
+                            <input ng-model="loginCtrl.data.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
                             <div ng-show="userForm.$submitted || userForm.username.$touched">
                                 <p ng-show="userForm.username.$error.required">Username is required. (3-15)</p>
                                 <p ng-show="userForm.username.$error.minlength">Username is too short. (3-15)</p>
@@ -32,7 +32,7 @@
                                 <p ng-show="userForm.username.$error.pattern">Username must only contain alphanumerics or an underscore</p>
                             </div>
                             
-                            <input ng-model="loginController.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
+                            <input ng-model="loginCtrl.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
                             <div ng-show="userForm.$submitted || userForm.password.$touched">
                                 <p ng-show="userForm.password.$error.required">Password is required.</p>
                                 <p ng-show="userForm.password.$error.minlength">Password must be 6 or more characters long.</p>
