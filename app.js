@@ -38,25 +38,9 @@ app.set('views', __dirname + '/views');                 // point to the views fo
 app.set('view engine', 'ejs');                          // EJS view engine allows you to code in HTML 
 
 /**
- * middleware for authentication
+ * middleware for authentication for user on each page load
  */
-app.use(function(request, response, next) {
-    var token = request.cookies["access_token"];
-    if (token) {
-        jwt.verify(token, process.env.secretKey, function (error, user) {
-            if (error) {
-                request.user = false;
-                next();
-            } else {
-                request.user = user;
-                next();
-            }
-        });
-    } else {
-        request.user = false;
-        next();
-    }
-});
+require('./routes/verify')(app);
 
 /**
  * use passport stategies
