@@ -1,13 +1,21 @@
 var jwt = require('jsonwebtoken');
-var config = require('../config/database');
+var config = require('../config/config');
 var User = require('../models/user');
 
 function createToken(user) {
-    var token = jwt.sign({
-        id: user._id,
-        username: user.local.username,
-        email: user.local.email
-    }, config.secretKey);
+    var token;
+    if (user.local.username) {
+        token = jwt.sign({
+            id: user._id,
+            username: user.local.username,
+            email: user.local.email
+        }, config.secretKey);
+    } else if (user.facebook.id) {
+        token = jwt.sign({
+            id: user._id,
+            fbid: user.facebook.id,
+        }, config.secretKey);
+    }
 
     return token;
 };
@@ -109,6 +117,18 @@ module.exports = function (express, passport) {
         return response.json(request.user);
     });
 
+    api.get('/auth/facebook', passport.authenticate('facebook', { session: false }));
+
+    api.get('/auth/facebook/callback', 
+        passport.authenticate('facebook', { session: false }), 
+        function(request, response) {
+            console.log(request.user);
+            var token = createToken(request.user);
+            response.cookie('access_token', token);
+            response.redirect('/');
+        }
+    );
+                                                
     return api;
 
 };

@@ -1,7 +1,7 @@
 /**
  * User Service factory
  */
-app.factory('userFactory', ['$http', '$cookies', function($http, $cookies) {
+app.factory('userFactory', ['$http', '$cookies', '$window', function($http, $cookies, $window) {
     
     var userFactory = {};
 
@@ -26,6 +26,11 @@ app.factory('userFactory', ['$http', '$cookies', function($http, $cookies) {
 
     userFactory.getUser = function () {
         return $http.get('/user/me');
+    };
+
+    // need to use window because need to connect to facebook server
+    userFactory.authFacebook = function () {
+        return window.location.href = '/user/auth/facebook';
     };
 
     return userFactory;

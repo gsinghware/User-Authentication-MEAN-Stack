@@ -2,10 +2,27 @@
  * Routing
  */
 
+// after facebook login, the location needs to be redirected to "#_=_"
+if (window.location.hash && window.location.hash === "#_=_") {
+    if (window.history && history.pushState) {
+        window.history.pushState("", document.title, window.location.pathname);
+    } else {
+        // Prevent scrolling by storing the page's current scroll offset
+        var _scroll = {
+            top: document.body.scrollTop,
+            left: document.body.scrollLeft
+        };
+        window.location.hash = "";
+        // Restore the scroll offset, should be flicker free
+        document.body.scrollTop = _scroll.top;
+        document.body.scrollLeft = _scroll.left;
+    }
+}
+
 var app = angular.module('UserAuth', ['ngRoute', 'ngCookies']);
 
 // $locationProvider - Removing the fragment identifier from AngularJS urls (# symbol)
-app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 
     $routeProvider.when('/', {title : 'Home', templateUrl: 'partials/home.ejs' });
     $routeProvider.when('/user/login', {title : 'Login', templateUrl: 'partials/login.ejs' });

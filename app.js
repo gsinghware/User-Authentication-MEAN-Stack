@@ -5,7 +5,7 @@ var express     = require('express');                   // node js framework
 var morgan      = require('morgan');                    // request/response logger in terminal
 var bodyParser  = require('body-parser');               // populates request.body with the value of the POST parameters
 var mongoose    = require('mongoose');                  // MongoDB object modeling tool
-var config      = require('./config/database');         // get the db config file
+var config      = require('./config/config');           // get the db config file
 var passport	= require('passport');                  // middleware for user authentication
 var cookieParser = require('cookie-parser');            // get the cookies from request
 var jwt         = require('jsonwebtoken');
@@ -41,12 +41,12 @@ app.set('view engine', 'ejs');                          // EJS view engine allow
  * middleware for authentication
  */
 app.use(function(request, response, next) {
-    console.log("in here with request, response");
     var token = request.cookies["access_token"];
     if (token) {
         jwt.verify(token, config.secretKey, function (error, user) {
             if (error) {
                 request.user = false;
+                next();
             } else {
                 request.user = user;
                 next();

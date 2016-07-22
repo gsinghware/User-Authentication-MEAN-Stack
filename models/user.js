@@ -7,12 +7,12 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
     local: {
-        username:   {type: String, unique: true},
-        password:   {type: String,},
-        email:      {type: String, unique: true},
+        username:   {type: String},
+        password:   {type: String},
+        email:      {type: String},
     }, 
     facebook: {
-        userID:     {type: String},
+        id:         {type: String},
     }
 }, { timestamps: true });
 

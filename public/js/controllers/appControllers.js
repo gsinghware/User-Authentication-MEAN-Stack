@@ -6,7 +6,7 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
     var viewModel = this;
 
     // $routeChangeStart callback is executed every time route changes
-    $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.$on('$routeChangeStart', function(e, next, previous) {
         
         // navbar isActive class function
         viewModel.isActive = function (viewLocation) {
@@ -27,6 +27,10 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
     viewModel.logoutUser = function() {
         userFactory.logoutUser();
         $location.path('user/login');
+    };
+
+    viewModel.userProfile = function () {
+        $location.path('user/profile');
     };
 
 }]);
