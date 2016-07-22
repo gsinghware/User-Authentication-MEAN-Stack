@@ -24,5 +24,9 @@ app.factory('userFactory', ['$http', '$cookies', function($http, $cookies) {
         $cookies.put('access_token', token);
     };
 
+    userFactory.getUser = function () {
+        return $http.get('/user/me');
+    };
+
     return userFactory;
 }]);

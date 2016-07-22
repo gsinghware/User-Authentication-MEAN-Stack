@@ -7,6 +7,8 @@ var bodyParser  = require('body-parser');               // populates request.bod
 var mongoose    = require('mongoose');                  // MongoDB object modeling tool
 var config      = require('./config/database');         // get the db config file
 var passport	= require('passport');                  // middleware for user authentication
+var cookieParser = require('cookie-parser');            // get the cookies from request
+var jwt         = require('jsonwebtoken');
 
 var port = process.env.PORT || 3000;
 
@@ -19,13 +21,14 @@ app.use(express.static(__dirname + '/public'));         // static middleware han
 app.use(bodyParser.json());                             // json format for the parameters (key-value pairs)
 app.use(bodyParser.urlencoded({ extended: true }));     // allow value to be any type
 app.use(passport.initialize());                         // use the passport package in our application
+app.use(cookieParser());
 
 /**
  * database connection
  */
 mongoose.connect(config.database, function(error) {
-	if (error) console.log(error)
-	else console.log("Connected to the database")
+	if (error) console.log(error);
+	else console.log("Connected to the database");
 });
 
 /**
@@ -33,6 +36,32 @@ mongoose.connect(config.database, function(error) {
  */
 app.set('views', __dirname + '/views');                 // point to the views folder
 app.set('view engine', 'ejs');                          // EJS view engine allows you to code in HTML 
+
+/**
+ * middleware for authentication
+ */
+app.use(function(request, response, next) {
+    console.log("in here with request, response");
+    var token = request.cookies["access_token"];
+    if (token) {
+        jwt.verify(token, config.secretKey, function (error, user) {
+            if (error) {
+                request.user = false;
+            } else {
+                request.user = user;
+                next();
+            }
+        });
+    } else {
+        request.user = false;
+        next();
+    }
+});
+
+/**
+ * use passport stategies
+ */
+require('./config/passport')(passport);
 
 /**
  * routes (POST/GET)

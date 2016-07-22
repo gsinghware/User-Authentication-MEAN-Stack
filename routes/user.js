@@ -14,15 +14,13 @@ function createToken(user) {
 
 module.exports = function (express, passport) {
 
-    require('../config/passport')(passport, User);
-
     var api = express.Router();
 
     /**
      * GET register
      */
     api.get('/register', function (request, response) {
-        if (response.user)
+        if (request.user)
             return response.redirect('/');
         response.render('index');
     });
@@ -67,7 +65,7 @@ module.exports = function (express, passport) {
      * GET login
      */
     api.get('/login', function (request, response) {
-        if (response.user)
+        if (request.user)
             return response.redirect('/');
         response.render('index');
     });
@@ -105,12 +103,10 @@ module.exports = function (express, passport) {
     });
 
     /**
-     * GET profile
+     * GET user
      */
-    api.get('/profile', function (request, response) {
-        if (!request.user)
-            return response.redirect('/user/login');
-        response.render('index');
+    api.get('/me', function (request, response) {
+        return response.json(request.user);
     });
 
     return api;

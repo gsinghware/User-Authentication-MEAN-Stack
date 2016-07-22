@@ -1,8 +1,8 @@
 /**
- * passport middleware authentication
+ * passport middleware authentication (local, facebook)
  */
 
 
-module.exports = function(passport, User) {
-    
+module.exports = function(passport) {
+
 };
