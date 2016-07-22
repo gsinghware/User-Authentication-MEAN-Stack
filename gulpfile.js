@@ -38,6 +38,12 @@ gulp.task('vendor', function() {
     // angular route
     gulp.src('node_modules/angular-route/**')
         .pipe(gulp.dest(vendor + '/angular-route/'));
+
+    // angular cookies
+    gulp.src('node_modules/angular-cookies/**')
+        .pipe(gulp.dest(vendor + '/angular-cookies/'));
+    
+    return;
 });
 
 gulp.task('watch', function () {

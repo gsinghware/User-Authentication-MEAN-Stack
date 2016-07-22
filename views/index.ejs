@@ -39,6 +39,7 @@
                     <li ng-class="{ active: mainCtrl.isActive('/')}"><a href="/">Home</a></li>
                     <li ng-class="{ active: mainCtrl.isActive('/user/login')}"><a href="/user/login">Login</a></li>
                     <li ng-class="{ active: mainCtrl.isActive('/user/register')}"><a href="/user/register">Register</a></li>
+                    <li ng-click="mainCtrl.logoutUser()"><a href="/">Logout</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -63,6 +64,7 @@
         <!-- Angualr.js -->
         <script src="/js/vendor/angular/angular.min.js"></script>
         <script src="/js/vendor/angular-route/angular-route.min.js"></script>
+        <script src="/js/vendor/angular-cookies/angular-cookies.min.js"></script>
 
         <!-- Load public js libs -->
         <script src="/js/app.js"></script>

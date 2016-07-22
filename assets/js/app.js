@@ -2,7 +2,7 @@
  * Routing
  */
 
-var app = angular.module('UserAuth', ['ngRoute']);
+var app = angular.module('UserAuth', ['ngRoute', 'ngCookies']);
 
 // $locationProvider - Removing the fragment identifier from AngularJS urls (# symbol)
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {

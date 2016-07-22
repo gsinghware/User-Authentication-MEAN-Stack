@@ -6,10 +6,11 @@ app.controller('registerController', ['$scope','$location', 'userFactory', funct
 
     viewModel.register = function() {
         userFactory.registerUser(viewModel.data).then(function (response) {
-            console.log("in resiter");
             if (response.data.success) {
+                console.log(response);
                 $location.path('/user/login');
             } else {
+                console.log("failed");
                 // TODO: user failes to register
             }
         });
@@ -24,10 +25,11 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
 
     viewModel.login = function() {
         userFactory.loginUser(viewModel.data).then(function (response) {
-            console.log(response);
             if (response.data.success) {
-                
+                console.log(response);
+                $location.path('/');
             } else {
+                console.log("failed");
                 // TODO: user failes to login
             }
         });

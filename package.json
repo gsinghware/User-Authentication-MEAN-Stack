@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "angular": "^1.5.7",
+    "angular-cookies": "^1.5.7",
     "angular-route": "^1.5.7",
     "bcrypt": "^0.8.7",
     "bcrypt-nodejs": "0.0.3",
@@ -37,6 +38,7 @@
     "gulp-uglify": "^1.5.4",
     "hbs": "^4.0.0",
     "html": "0.0.10",
+    "jsonwebtoken": "^7.1.6",
     "mongoose": "^4.5.5",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0"

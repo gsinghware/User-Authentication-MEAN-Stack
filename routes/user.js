@@ -1,4 +1,16 @@
+var jwt = require('jsonwebtoken');
+var config = require('../config/database');
 var User = require('../models/user');
+
+function createToken(user) {
+    var token = jwt.sign({
+        id: user._id,
+        username: user.local.username,
+        email: user.local.email
+    }, config.secretKey);
+
+    return token;
+};
 
 module.exports = function (express, passport) {
 
@@ -82,7 +94,6 @@ module.exports = function (express, passport) {
 					});
 				} else {
                     var token = createToken(user);
-                    
 					response.json({
 						success: true,
                         token: token,
