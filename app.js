@@ -10,7 +10,7 @@ var passport	= require('passport');                  // middleware for user auth
 var cookieParser = require('cookie-parser');            // get the cookies from request
 var jwt         = require('jsonwebtoken');
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT;
 
 /**
  * express configuration
@@ -43,7 +43,7 @@ app.set('view engine', 'ejs');                          // EJS view engine allow
 app.use(function(request, response, next) {
     var token = request.cookies["access_token"];
     if (token) {
-        jwt.verify(token, config.secretKey, function (error, user) {
+        jwt.verify(token, process.env.secretKey, function (error, user) {
             if (error) {
                 request.user = false;
                 next();

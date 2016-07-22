@@ -11,17 +11,6 @@
 
                 <div class="panel-body">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            Sign Up with Facebook
-                        </div>
-                        <div class="col-md-6">
-                            Sign Up with Twitter
-                        </div>
-                    </div>
-
-                    <hr>
-
                     <form method="POST" role="form" name="userForm" ng-submit="userForm.$valid && registerCtrl.register()" novalidate="">
                         <div class="form-group">
                             <input ng-model="registerCtrl.data.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">

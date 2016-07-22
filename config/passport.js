@@ -9,9 +9,9 @@ var User = require('../models/user');
 module.exports = function(passport) {
 
     passport.use(new FacebookStrategy({
-	    clientID: '',
-	    clientSecret: '',
-	    callbackURL: ''
+	    clientID:       process.env.FBclientID,
+	    clientSecret:   process.env.FBclientSecret,
+	    callbackURL:    process.env.FBcallbackURL
     }, function(accessToken, refreshToken, profile, done) {
 
         User.findOne({'facebook.id': profile.id}, function(error, user) {

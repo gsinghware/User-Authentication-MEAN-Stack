@@ -1,4 +1,3 @@
 module.exports = {
-    "database": "mongodb://localhost/userAuthentication",
-	"secretKey": "desirankerkey"
+    "database": "mongodb://localhost/userAuthentication"
 }

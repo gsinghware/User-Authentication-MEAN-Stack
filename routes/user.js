@@ -1,5 +1,4 @@
 var jwt = require('jsonwebtoken');
-var config = require('../config/config');
 var User = require('../models/user');
 
 function createToken(user) {
@@ -9,12 +8,12 @@ function createToken(user) {
             id: user._id,
             username: user.local.username,
             email: user.local.email
-        }, config.secretKey);
+        }, process.env.secretKey);
     } else if (user.facebook.id) {
         token = jwt.sign({
             id: user._id,
             fbid: user.facebook.id,
-        }, config.secretKey);
+        }, process.env.secretKey);
     }
 
     return token;
