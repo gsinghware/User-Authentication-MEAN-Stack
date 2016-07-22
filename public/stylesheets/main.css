@@ -3,3 +3,6 @@ body {
 
 input {
   margin-bottom: 10px; }
+
+.control-group {
+  margin-bottom: 25px; }
