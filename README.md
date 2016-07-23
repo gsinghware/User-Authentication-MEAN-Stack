@@ -1,12 +1,23 @@
 # User-Authentication-MEAN-Stack
 MEAN stack authentication
 
-### How to run the app?
-After pulling the repository, create a build.sh file and include the following:
+Getting Started
+---------------
 
-`#!/bin/bash`
-`secretKey= PORT=3000 FBclientID= FBclientSecret= FBcallbackURL= node app.js`
+The easiest way to get started is to clone the repository:
 
-`chmod 777 build.sh`
+```bash
+# Get the latest snapshot of the repository
 
-`./build.sh`
+# Change directory
+cd project
+
+Create a file called build.sh and include the following in it:
+
+#!/bin/bash
+secretKey= PORT=3000 FBclientID= FBclientSecret= FBcallbackURL= node app.js`
+
+chmod 777 ./build.sh
+
+./build.sh
+```
