@@ -21,9 +21,12 @@ module.exports = function(passport) {
             // found the user, return the user
             if(user) return done(null, user);
 
+            console.log(profile);
+
             // user does not exist, so adding it
             var newUser = new User();
             newUser.facebook.id = profile.id;
+            newUser.facebook.name = profile.displayName;
 
             newUser.save(function(error){                
                 if(error) throw error;

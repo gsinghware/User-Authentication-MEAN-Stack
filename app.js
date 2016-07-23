@@ -43,7 +43,7 @@ app.set('view engine', 'ejs');                          // EJS view engine allow
 require('./routes/verify')(app);
 
 /**
- * use passport stategies
+ * use passport stategies for facebook login
  */
 require('./config/passport')(passport);
 

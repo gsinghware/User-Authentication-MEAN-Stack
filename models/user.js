@@ -13,6 +13,8 @@ var userSchema = new Schema({
     }, 
     facebook: {
         id:         {type: String},
+        email:      {type: String},
+        name:       {type: String}
     }
 }, { timestamps: true });
 

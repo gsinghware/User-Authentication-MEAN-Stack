@@ -116,12 +116,11 @@ module.exports = function (express, passport) {
         return response.json(request.user);
     });
 
-    api.get('/auth/facebook', passport.authenticate('facebook', { session: false }));
+    api.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'], session: false }));
 
     api.get('/auth/facebook/callback', 
         passport.authenticate('facebook', { session: false }), 
         function(request, response) {
-            console.log(request.user);
             var token = createToken(request.user);
             response.cookie('access_token', token);
             response.redirect('/');

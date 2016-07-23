@@ -10,8 +10,7 @@ app.controller('registerController', ['$scope','$location', 'userFactory', funct
                 console.log(response);
                 $location.path('/user/login');
             } else {
-                console.log("failed");
-                // TODO: user failes to register
+                $scope.error = response.data.Error;
             }
         });
     };
@@ -33,8 +32,7 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
                 console.log(response);
                 $location.path('/');
             } else {
-                console.log("failed");
-                // TODO: user failes to login
+                $scope.error = response.data.Error;
             }
         });
     };
