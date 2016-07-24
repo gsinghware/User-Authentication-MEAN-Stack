@@ -53,6 +53,10 @@ require('./config/passport')(passport);
 var userRoutes = require('./routes/user.js')(express, passport);    // user api routes
 app.use('/user', userRoutes);                                       // url: /user/* goes through user routes, ie. user/login, user/register
 
+var listRoutes = require('./routes/list.js')(express, passport);    // user api routes
+app.use('/list', listRoutes);                                       // url: /user/* goes through user routes, ie. user/login, user/register
+
+
 app.get('*', function(request, response) {              // everything gets rendered on the index page
     response.render('index');
 });

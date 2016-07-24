@@ -22,6 +22,7 @@ module.exports = function (app) {
                     request.user = false;
                     next();
                 } else {
+                    // TODO: verify if the user still exists, make request to server
                     request.user = user;
                     next();
                 }
