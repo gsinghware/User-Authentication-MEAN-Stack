@@ -41,29 +41,40 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
 /**
  * Profile Controller
  */
-app.controller('profileController', ['$scope','$location', function($scope, $location) {
+app.controller('profileController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
     var viewModel = this;
 
-    var userEmail = $scope.$parent.mainCtrl.user.email;
-    var username = $scope.$parent.mainCtrl.user.username;
-    $scope.email = userEmail;
+    // get the username & email from the mainCtrl
+    var userEmail = $scope.$parent.mainCtrl.user.local.email;
+    var username = $scope.$parent.mainCtrl.user.local.username;
+
+    // set that as the scope
     $scope.username = username;
+    $scope.email = userEmail;
 
     viewModel.updateProfile = function() {
+
+        // two types of updates
+        // 1. local user: cannot update username, can update email
+        // 2. facebook user: can get username if doesn't have one and can update email
+
+        viewModel.data = {};
         
-        if (username == "") {
-            // if user wants a username
+        // facebook user getting a username for the ist & only time
+        if (username == "") viewModel.data.username = $scope.username;
+        
+        // updating email if the scope email doesn't equal the mainCtrl user email
+        if ($scope.email != userEmail) viewModel.data.email = $scope.email;
+    
+        if (Object.keys(viewModel.data).length != 0) {
+            userFactory.updateProfile(viewModel.data).then(function (response) {
+                if (response.data.success) {
+                    console.log(response);
+                } else {
+                    $scope.error = response.data.Error;
+                }
+            });
         }
-        if ($scope.email != userEmail) {
-            
-        }
-        userFactory.updateProfile(viewModel.data).then(function (response) {
-            if (response.data.success) {
-                console.log(response);
-            } else {
-                $scope.error = response.data.Error;
-            }
-        });
     };
 
     viewModel.updatePassword = function () {
@@ -80,3 +91,5 @@ app.controller('profileController', ['$scope','$location', function($scope, $loc
     };
 
 }]);
+
+

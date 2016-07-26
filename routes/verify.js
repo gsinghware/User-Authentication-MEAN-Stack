@@ -3,6 +3,7 @@
  */
 
 var jwt = require('jsonwebtoken');
+var User = require('../models/user');
 
 module.exports = function (app) {
 
@@ -22,9 +23,15 @@ module.exports = function (app) {
                     request.user = false;
                     next();
                 } else {
-                    // TODO: verify if the user still exists, make request to server
-                    request.user = user;
-                    next();
+                    // verify the user still exists in the database
+                    User.findOne({ 'local.username': user.username }, function (error, user) {
+                        if (error) return handleError(error);
+                        
+                        if (user) request.user = user;
+                        else request.user = false;
+
+                        next();
+                    });
                 }
             });
         } else {

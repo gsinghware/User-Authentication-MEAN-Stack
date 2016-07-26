@@ -27,7 +27,6 @@
                             </div>
                             
                             <input ng-model="registerCtrl.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
-                            
                             <div ng-show="userForm.$submitted || userForm.password.$touched">
                                 <p ng-show="userForm.password.$error.required">Password is required.</p>
                                 <p ng-show="userForm.password.$error.minlength">Password must be 6 or more characters long.</p>
@@ -36,6 +35,7 @@
                             <input ng-model="registerCtrl.data.email" type="email" class="form-control" name="email" placeholder="Email" ng-required="true">
                             <div ng-show="userForm.$submitted || userForm.email.$touched">
                                 <p ng-show="userForm.email.$error.required">Email is required.</p>
+                                <p ng-show="userForm.$error.email">Enter valid email address.</p>
                             </div>
                         </div>
                     

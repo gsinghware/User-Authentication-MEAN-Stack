@@ -116,8 +116,14 @@ module.exports = function (express, passport) {
         return response.json(request.user);
     });
 
+    /**
+     * GET facebook user info
+     */
     api.get('/auth/facebook', passport.authenticate('facebook', { scope : ['email'], session: false }));
 
+    /**
+     * GET the returned facebook callback
+     */
     api.get('/auth/facebook/callback', 
         passport.authenticate('facebook', { session: false }), 
         function(request, response) {
@@ -126,6 +132,31 @@ module.exports = function (express, passport) {
             response.redirect('/');
         }
     );
+
+    /**
+     * POST update Profile
+     */
+    api.post('/updateProfile', function (request, response) {
+        console.log(request.body);
+        var username = request.body.username || null;
+        var email = request.body.email || null;
+
+        if (email && username) {
+            console.log(email, username);
+        } else if (email) {
+            console.log(email);
+        }
+
+        return response.json({ success: false });
+    });
+
+    /**
+     * POST update Password
+     */
+    api.post('/updatePassword', function (request, response) {
+        console.log(request.body);
+        return response.json({ success: false });
+    });
                                                 
     return api;
 

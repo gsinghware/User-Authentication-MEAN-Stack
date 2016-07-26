@@ -33,5 +33,13 @@ app.factory('userFactory', ['$http', '$cookies', '$window', function($http, $coo
         return window.location.href = '/user/auth/facebook';
     };
 
+    userFactory.updateProfile = function (data) {
+        return $http.post('/user/updateProfile', data);
+    };
+    
+    userFactory.updatePassword = function (data) {
+        return $http.post('/user/updatePassword', data);
+    };
+
     return userFactory;
 }]);

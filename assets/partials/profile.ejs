@@ -2,15 +2,21 @@
     <div class="row col-sm-6">
 
         <div class="control-group">
-            <form method="POST" role="form" name="profileForm" ng-submit="profileCtrl.updateProfile()">
+            <form method="POST" role="form" name="profileForm" ng-submit="profileForm.$valid && profileCtrl.updateProfile()" novalidate="">
  
                 <legend>Profile</legend>
                 
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right">Username</label>
+                        <label for="username" class="col-sm-4 control-label text-right">Username</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="username" value="{{ mainCtrl.user.username }}" ng-disabled="mainCtrl.user.username">
+                            <input ng-model="username" ng-disabled="mainCtrl.user.local.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
+                            <div ng-show="profileForm.$submitted || profileForm.username.$touched">
+                                <p ng-show="profileForm.username.$error.required">Username is required. (3-15)</p>
+                                <p ng-show="profileForm.username.$error.minlength">Username is too short. (3-15)</p>
+                                <p ng-show="profileForm.username.$error.maxlength">Username is too Long. (3-15)</p>
+                                <p ng-show="profileForm.username.$error.pattern">Username must only contain alphanumerics or an underscore</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -19,14 +25,18 @@
                     <div class="form-group">
                         <label for="email" class="col-sm-4 control-label text-right">Email</label>
                         <div class="col-sm-8">
-                            <input type="text" ng-model="email" class="form-control" name="email">
+                            <input type="email" ng-model="email" class="form-control" name="email" ng-required="true">
+                            <div ng-show="profileForm.$submitted || profileForm.email.$touched">
+                                <p ng-show="profileForm.email.$error.required">Email is required.</p>
+                                <p ng-show="profileForm.$error.email">Enter valid email address.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right"></label>
+                        <label for="emptySpace" class="col-sm-4"></label>
                         <div class="col-sm-8">
                             <button type="submit" class="btn btn-primary ">Update Profile</button>
                         </div>
@@ -43,7 +53,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right">Current Password</label>
+                        <label for="curPassword" class="col-sm-4 control-label text-right">Current Password</label>
                         <div class="col-sm-8">
                             <input ng-model="profileCtrl.data.password" type="password" class="form-control" name="Password">
                         </div>
@@ -52,7 +62,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right">New Password</label>
+                        <label for="newPassword" class="col-sm-4 control-label text-right">New Password</label>
                         <div class="col-sm-8">
                             <input ng-model="profileCtrl.data.newPassword" type="password" class="form-control" name="newPassword">
                         </div>
@@ -61,7 +71,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right">Confirm New Password</label>
+                        <label for="confirmNewPassword" class="col-sm-4 control-label text-right">Confirm New Password</label>
                         <div class="col-sm-8">
                             <input ng-model="profileCtrl.data.confirmNewPassword" ng-model="email" type="password" class="form-control" name="confirmNewPassword">
                         </div>
@@ -70,7 +80,7 @@
 
                 <div class="row">
                     <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right"></label>
+                        <label for="emptySpace" class="col-sm-4"></label>
                         <div class="col-sm-8">
                             <button type="submit" class="btn btn-primary ">Update Password</button>
                         </div>
