@@ -27,9 +27,13 @@ module.exports = function (app) {
                     User.findOne({ 'local.username': user.username }, function (error, user) {
                         if (error) return handleError(error);
                         
-                        if (user) request.user = user;
-                        else request.user = false;
-
+                        if (user) {
+                            request.user = user;
+                            console.log("request.user if ", request.user);
+                        } else {
+                            request.user = false;
+                            console.log("request.user else ", request.user);
+                        }
                         next();
                     });
                 }

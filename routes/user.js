@@ -110,6 +110,15 @@ module.exports = function (express, passport) {
     });
 
     /**
+     * GET profile
+     */
+    api.get('/profile', function (request, response) {
+        if (!request.user)
+            return response.redirect('/');
+        response.render('index');
+    });
+
+    /**
      * GET user
      */
     api.get('/me', function (request, response) {
@@ -138,6 +147,7 @@ module.exports = function (express, passport) {
      */
     api.post('/updateProfile', function (request, response) {
         console.log(request.body);
+
         var username = request.body.username || null;
         var email = request.body.email || null;
 
