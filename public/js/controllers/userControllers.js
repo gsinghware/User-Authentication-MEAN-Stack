@@ -7,10 +7,9 @@ app.controller('registerController', ['$scope','$location', 'userFactory', funct
     viewModel.register = function() {
         userFactory.registerUser(viewModel.data).then(function (response) {
             if (response.data.success) {
-                console.log(response);
                 $location.path('/user/login');
             } else {
-                $scope.error = response.data.Error;
+                $scope.error = response.data.message;
             }
         });
     };
@@ -45,8 +44,8 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
     var viewModel = this;
 
     // get the username & email from the mainCtrl
-    var userEmail = $scope.$parent.mainCtrl.user.local.email;
-    var username = $scope.$parent.mainCtrl.user.local.username;
+    var userEmail = $scope.$parent.mainCtrl.user.email;
+    var username = $scope.$parent.mainCtrl.user.username;
 
     // set that as the scope
     $scope.username = username;
@@ -69,22 +68,26 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
         if (Object.keys(viewModel.data).length != 0) {
             userFactory.updateProfile(viewModel.data).then(function (response) {
                 if (response.data.success) {
-                    $scope.passwordMessage = response.data.message;
+                    $scope.profileSuccessMessage = response.data.message;
                 } else {
-                    // TODO: do something if the error failed
+                    $scope.profileFailMessage = response.data.message;
                 }
             });
         }
     };
 
     viewModel.updatePassword = function () {
-
         userFactory.updatePassword(viewModel.data).then(function (response) {
-            if (response.data.success) {
-                $scope.passwordMessage = response.data.message;
-            } else {
-                // TODO: do something if the error failed
-            }
+            console.log(response);
+            if (response.data.success)
+                $scope.passwordSuccessMessage = response.data.message;
+            else
+                $scope.passwordFailMessage = response.data.message;
+            
+            // clear 
+            viewModel.data = {};
+            $scope.passwordForm.$setUntouched();
+            $scope.passwordForm.$setPristine();
         });
     };
 

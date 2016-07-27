@@ -4,18 +4,25 @@
         <div class="control-group">
             <form method="POST" role="form" name="profileForm" ng-submit="profileForm.$valid && profileCtrl.updateProfile()" novalidate="">
 
-                <div class="alert alert-success fade in" ng-hide="!message">
+                <!-- form post success message -->
+                <div class="alert alert-success fade in" ng-hide="!profileSuccessMessage">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Success!</strong> {{ message }}
+                    <strong>Success!</strong> {{ profileSuccessMessage }}
                 </div>
                 
+                <!-- form post fail message -->
+                <div class="alert alert-warning fade in" ng-hide="!profileFailMessage">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Warning!</strong> {{ profileFailMessage }}
+                </div>
+
                 <legend>Profile</legend>
                 
                 <div class="row">
                     <div class="form-group">
                         <label for="username" class="col-sm-4 control-label text-right">Username</label>
                         <div class="col-sm-8">
-                            <input ng-model="username" ng-disabled="mainCtrl.user.local.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
+                            <input ng-model="username" ng-disabled="mainCtrl.user.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
                             <div ng-show="profileForm.$submitted || profileForm.username.$touched">
                                 <p ng-show="profileForm.username.$error.required">Username is required. (3-15)</p>
                                 <p ng-show="profileForm.username.$error.minlength">Username is too short. (3-15)</p>
@@ -54,9 +61,16 @@
         <div class="control-group">
             <form method="POST" role="form" name="passwordForm" ng-submit="passwordForm.$valid && profileCtrl.updatePassword()">
 
-                <div class="alert alert-success fade in" ng-hide="!passwordMessage">
+                <!-- form post success message -->
+                <div class="alert alert-success fade in" ng-hide="!passwordSuccessMessage">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Success!</strong> {{ passwordMessage }}
+                    <strong>Success!</strong> {{ passwordSuccessMessage }}
+                </div>
+
+                <!-- form post fail message -->
+                <div class="alert alert-warning fade in" ng-hide="!passwordFailMessage">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Warning!</strong> {{ passwordFailMessage }}
                 </div>
                 
                 <legend>Change Password</legend>

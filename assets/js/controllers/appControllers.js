@@ -22,7 +22,6 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
             } else
                 viewModel.isLoggedIn = false;
         });
-
     });
 
     viewModel.logoutUser = function() {

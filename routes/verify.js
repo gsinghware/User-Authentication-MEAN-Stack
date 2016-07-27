@@ -23,16 +23,13 @@ module.exports = function (app) {
                     request.user = false;
                     next();
                 } else {
-                    // verify the user still exists in the database
-                    User.findOne({ 'local.username': user.username }, function (error, user) {
+                    User.findOne({ '_id': user._id }, function (error, user) {
                         if (error) return handleError(error);
                         
                         if (user) {
                             request.user = user;
-                            // console.log("request.user if ", request.user);
                         } else {
                             request.user = false;
-                            // console.log("request.user else ", request.user);
                         }
                         next();
                     });

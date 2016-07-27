@@ -2,21 +2,9 @@ var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 
 function createToken(user) {
-    var token;
-    if (user.local.username) {
-        token = jwt.sign({
-            id: user._id,
-            username: user.local.username,
-            email: user.local.email
-        }, process.env.secretKey);
-    } else if (user.facebook.id) {
-        token = jwt.sign({
-            id: user._id,
-            fbid: user.facebook.id,
-        }, process.env.secretKey);
-    }
-
-    return token;
+    return jwt.sign({
+        _id: user._id
+    }, process.env.secretKey, {expiresIn: "2 days"});
 };
 
 module.exports = function (express, passport) {
@@ -36,35 +24,37 @@ module.exports = function (express, passport) {
      * POST register
      */
     api.post('/register', function (request, response) {
-
-        User.findOne({ 
-            $or: [{ 'local.username': request.body.username },
-                  { 'local.email': request.body.email } ]}, function (error, user) {
+        console.log(request.body)
+        User.findOne({
+            $or: [{ 'username': request.body.username },
+                  { 'email':    request.body.email } ]}, function (error, user) {
             
             if (error) return handleError(error);
 
             if (user) {
-                if ( user.local.username == request.body.username && user.local.email != request.body.email ) {
-                    response.json({ Error: 'Username is already in use'});
-                } else if ( user.local.username != request.body.username && user.local.email == request.body.email ) {
-                    response.json({ Error: 'Email is already in use'});
-                } else if ( user.local.username == request.body.username && user.local.email == request.body.email ) {
-                    response.json({ Error: 'Both Username and Email are already in use'});
+                if ( user.username == request.body.username && user.email != request.body.email ) {
+                    response.json({ success: false, message: 'Username is already in use'});
+                } else if ( user.username != request.body.username && user.email == request.body.email ) {
+                    response.json({ success: false, message: 'Email is already in use'});
+                } else if ( user.username == request.body.username && user.email == request.body.email ) {
+                    response.json({ success: false, message: 'Both Username and Email are already in use'});
                 }
             } else {
                 var user = new User({
-                    'local.username': request.body.username,
-                    'local.password': request.body.password,
-                    'local.email': request.body.email
+                    'username': request.body.username,
+                    'password': request.body.password,
+                    'email':    request.body.email,
+                    'type':     'Regular'
                 });
                 user.save(function (error) {
                     if (error) {
-                        response.send(error);
+                        response.json({ success: false, message: error});
                         return;
                     }
                     response.json({ success: true, message: 'New user has been created'});
                 });
             }
+            return;
         });
     });
 
@@ -82,7 +72,7 @@ module.exports = function (express, passport) {
      */
     api.post('/login', function (request, response) {
 
-        User.findOne({ 'local.username': request.body.username }, function (error, user) {
+        User.findOne({ 'username': request.body.username }, function (error, user) {
             if (error) return handleError(error);
 
             if (!user) {
@@ -151,7 +141,7 @@ module.exports = function (express, passport) {
             else {
                 if (!foundUser) response.send({ Error: "Username doesn't exist.", success: false });
                 else {
-                    if (request.body.email) foundUser.local.email = request.body.email;
+                    if (request.body.email) foundUser.email = request.body.email;
                     
                     foundUser.save(function (error, updatedUser) {
                         if (error) return handleError(error);
@@ -175,8 +165,18 @@ module.exports = function (express, passport) {
             else {
                 if (!foundUser) response.send({ Error: "Username doesn't exist.", success: false });
                 else {
-                    if (request.body.password) foundUser.local.password = request.body.password;
-                    
+
+                    var validPassword = foundUser.comparePassword(request.body.password);
+                    if (validPassword)
+                        foundUser.password = request.body.newPassword;
+                    else {
+                        response.json({
+                            success: false,
+                            message: "Current password is wrong."
+                        });
+                        return;
+                    }
+
                     foundUser.save(function (error, updatedUser) {
                         if (error) return handleError(error);
                         else request.user = updatedUser;
