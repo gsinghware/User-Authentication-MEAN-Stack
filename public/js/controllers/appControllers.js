@@ -15,6 +15,7 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
 
         // get current user (visitor/registered user)
         userFactory.getUser().then(function(user) {
+            console.log(user);
             if (user.data) {
                 viewModel.isLoggedIn = true;
                 viewModel.user = user.data;

@@ -69,23 +69,21 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
         if (Object.keys(viewModel.data).length != 0) {
             userFactory.updateProfile(viewModel.data).then(function (response) {
                 if (response.data.success) {
-                    console.log(response);
+                    $scope.passwordMessage = response.data.message;
                 } else {
-                    $scope.error = response.data.Error;
+                    // TODO: do something if the error failed
                 }
             });
         }
     };
 
     viewModel.updatePassword = function () {
-        // TODO: verify password and if valid, upadate it
-        console.log("verify password and if valid, upadate it");
 
         userFactory.updatePassword(viewModel.data).then(function (response) {
             if (response.data.success) {
-                console.log(response);
+                $scope.passwordMessage = response.data.message;
             } else {
-                $scope.error = response.data.Error;
+                // TODO: do something if the error failed
             }
         });
     };

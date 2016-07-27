@@ -146,26 +146,48 @@ module.exports = function (express, passport) {
      * POST update Profile
      */
     api.post('/updateProfile', function (request, response) {
-        console.log(request.body);
-
-        var username = request.body.username || null;
-        var email = request.body.email || null;
-
-        if (email && username) {
-            console.log(email, username);
-        } else if (email) {
-            console.log(email);
-        }
-
-        return response.json({ success: false });
+        User.findOne({_id: request.user._id}, function (error, foundUser) {
+            if (error) return handleError(error);
+            else {
+                if (!foundUser) response.send({ Error: "Username doesn't exist.", success: false });
+                else {
+                    if (request.body.email) foundUser.local.email = request.body.email;
+                    
+                    foundUser.save(function (error, updatedUser) {
+                        if (error) return handleError(error);
+                        else request.user = updatedUser;
+                        response.json({
+                            success: true,
+                            message: "User has been updated successfully."
+                        });
+                    })
+                }
+            }
+        });
     });
 
     /**
      * POST update Password
      */
     api.post('/updatePassword', function (request, response) {
-        console.log(request.body);
-        return response.json({ success: false });
+        User.findOne({_id: request.user._id}, function (error, foundUser) {
+            if (error) return handleError(error);
+            else {
+                if (!foundUser) response.send({ Error: "Username doesn't exist.", success: false });
+                else {
+                    if (request.body.password) foundUser.local.password = request.body.password;
+                    
+                    foundUser.save(function (error, updatedUser) {
+                        if (error) return handleError(error);
+                        else request.user = updatedUser;
+                        response.json({
+                            success: true,
+                            message: "User has been updated successfully."
+                        });
+                    })
+                }
+            }
+        });
     });
                                                 
     return api;

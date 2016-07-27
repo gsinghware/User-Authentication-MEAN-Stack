@@ -3,7 +3,12 @@
 
         <div class="control-group">
             <form method="POST" role="form" name="profileForm" ng-submit="profileForm.$valid && profileCtrl.updateProfile()" novalidate="">
- 
+
+                <div class="alert alert-success fade in" ng-hide="!message">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Success!</strong> {{ message }}
+                </div>
+                
                 <legend>Profile</legend>
                 
                 <div class="row">
@@ -47,15 +52,24 @@
         </div> <!-- end control group -->
 
         <div class="control-group">
-            <form method="POST" role="form" name="passwordForm" ng-submit="profileCtrl.updatePassword()">
+            <form method="POST" role="form" name="passwordForm" ng-submit="passwordForm.$valid && profileCtrl.updatePassword()">
 
+                <div class="alert alert-success fade in" ng-hide="!passwordMessage">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <strong>Success!</strong> {{ passwordMessage }}
+                </div>
+                
                 <legend>Change Password</legend>
 
                 <div class="row">
                     <div class="form-group">
                         <label for="curPassword" class="col-sm-4 control-label text-right">Current Password</label>
                         <div class="col-sm-8">
-                            <input ng-model="profileCtrl.data.password" type="password" class="form-control" name="Password">
+                            <input ng-model="profileCtrl.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
+                            <div ng-show="passwordForm.$submitted || passwordForm.password.$touched">
+                                <p ng-show="passwordForm.password.$error.required">Password is required.</p>
+                                <p ng-show="passwordForm.password.$error.minlength">Password must be 6 or more characters long.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +78,11 @@
                     <div class="form-group">
                         <label for="newPassword" class="col-sm-4 control-label text-right">New Password</label>
                         <div class="col-sm-8">
-                            <input ng-model="profileCtrl.data.newPassword" type="password" class="form-control" name="newPassword">
+                            <input ng-model="profileCtrl.data.newPassword" type="password" class="form-control" name="newPassword" placeholder="New Password" ng-minlength="6" ng-required="true">
+                            <div ng-show="passwordForm.$submitted || passwordForm.newPassword.$touched">
+                                <p ng-show="passwordForm.newPassword.$error.required">Password is required.</p>
+                                <p ng-show="passwordForm.newPassword.$error.minlength">Password must be 6 or more characters long.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -73,9 +91,15 @@
                     <div class="form-group">
                         <label for="confirmNewPassword" class="col-sm-4 control-label text-right">Confirm New Password</label>
                         <div class="col-sm-8">
-                            <input ng-model="profileCtrl.data.confirmNewPassword" ng-model="email" type="password" class="form-control" name="confirmNewPassword">
+                            <input ng-model="profileCtrl.data.confirmNewPassword" type="password" class="form-control" name="confirmNewPassword" ng-Match="profileCtrl.data.newPassword" placeholder="Confirm New Password" ng-minlength="6" ng-required="true">
+                            <div ng-show="passwordForm.$submitted || passwordForm.confirmNewPassword.$touched">
+                                <p ng-show="passwordForm.confirmNewPassword.$error.required">Password is required.</p>
+                                <p ng-show="passwordForm.confirmNewPassword.$error.minlength">Password must be 6 or more characters long.</p>
+                                <p ng-show="passwordForm.$error.ngMatch">Passwords do not match.</p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row">
@@ -92,4 +116,3 @@
 
     </div> <!-- end outter row -->
 </div> <!-- end container -->
-

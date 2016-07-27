@@ -29,10 +29,10 @@ module.exports = function (app) {
                         
                         if (user) {
                             request.user = user;
-                            console.log("request.user if ", request.user);
+                            // console.log("request.user if ", request.user);
                         } else {
                             request.user = false;
-                            console.log("request.user else ", request.user);
+                            // console.log("request.user else ", request.user);
                         }
                         next();
                     });
