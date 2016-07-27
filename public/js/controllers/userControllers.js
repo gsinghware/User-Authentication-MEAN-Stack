@@ -39,9 +39,11 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
 /**
  * Profile Controller
  */
-app.controller('profileController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
+app.controller('profileController', ['$scope','$location', '$timeout', 'userFactory', function($scope, $location, $timeout, userFactory) {
     var viewModel = this;
-
+    
+    //console.log($scope.$parent.$parent.mainCtrl.user.email);
+    
     // get the username & email from the mainCtrl
     var userEmail = $scope.$parent.mainCtrl.user.email;
     var username = $scope.$parent.mainCtrl.user.username;
@@ -75,8 +77,14 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
                     $scope.email = userEmail;
                     $scope.profileFailMessage = response.data.message;
                 }
+                
+                $timeout(function () {
+                    $scope.profileSuccessMessage = "";
+                    $scope.profileFailMessage = "";
+                }, 3000);
             });
         }
+
     };
 
     viewModel.updatePassword = function () {
@@ -88,8 +96,13 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
                 $scope.passwordSuccessMessage = response.data.message;
             else
                 $scope.passwordFailMessage = response.data.message;
-
-            // clear 
+            
+            $timeout(function () {
+                $scope.passwordSuccessMessage = "";
+                $scope.passwordFailMessage = "";
+            }, 3000);
+            
+            // clear the input boxes
             viewModel.data = {};
             $scope.passwordForm.$setUntouched();
             $scope.passwordForm.$setPristine();
