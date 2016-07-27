@@ -76,24 +76,14 @@ module.exports = function (express, passport) {
             if (error) return handleError(error);
 
             if (!user) {
-                response.send({ 
-					Error: "Username doesn't exist.",
-					success: false
-				});
+                response.json({ success: false, message: 'Username does not exist.'});
             } else {
                 var validPassword = user.comparePassword(request.body.password);
 				if (!validPassword) {
-					response.send({
-						Error: "Invalid Password.",
-						success: false
-					});
+                    response.json({ success: false, message: 'Invalid Password.'});
 				} else {
                     var token = createToken(user);
-					response.json({
-						success: true,
-                        token: token,
-						message: "Successfully login!"
-					});
+					response.json({ success: true, token: token, message: 'Successfully login!'});
 				}
             }
         });
@@ -144,13 +134,17 @@ module.exports = function (express, passport) {
                     if (request.body.email) foundUser.email = request.body.email;
                     
                     foundUser.save(function (error, updatedUser) {
-                        if (error) return handleError(error);
-                        else request.user = updatedUser;
-                        response.json({
-                            success: true,
-                            message: "User has been updated successfully."
-                        });
-                    })
+                        if (error) {
+                            if (error.code == "11000")
+                                response.json({ success: false, message: request.body.email + " is already in use."});
+                            else
+                                response.json({ success: false, message: error});
+                            return;
+                        }
+                        else 
+                            request.user = updatedUser;
+                        response.json({ success: true, message: "User has been updated successfully."});
+                    });
                 }
             }
         });

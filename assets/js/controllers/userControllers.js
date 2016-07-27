@@ -28,10 +28,9 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
     viewModel.login = function() {
         userFactory.loginUser(viewModel.data).then(function (response) {
             if (response.data.success) {
-                console.log(response);
                 $location.path('/');
             } else {
-                $scope.error = response.data.Error;
+                $scope.error = response.data.message;
             }
         });
     };
@@ -53,6 +52,9 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
 
     viewModel.updateProfile = function() {
 
+        $scope.profileSuccessMessage = "";
+        $scope.profileFailMessage = "";
+
         // two types of updates
         // 1. local user: cannot update username, can update email
         // 2. facebook user: can get username if doesn't have one and can update email
@@ -64,12 +66,13 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
         
         // updating email if the scope email doesn't equal the mainCtrl user email
         if ($scope.email != userEmail) viewModel.data.email = $scope.email;
-    
+
         if (Object.keys(viewModel.data).length != 0) {
             userFactory.updateProfile(viewModel.data).then(function (response) {
                 if (response.data.success) {
                     $scope.profileSuccessMessage = response.data.message;
                 } else {
+                    $scope.email = userEmail;
                     $scope.profileFailMessage = response.data.message;
                 }
             });
@@ -77,13 +80,15 @@ app.controller('profileController', ['$scope','$location', 'userFactory', functi
     };
 
     viewModel.updatePassword = function () {
+        $scope.passwordSuccessMessage = "";
+        $scope.passwordFailMessage = "";
+
         userFactory.updatePassword(viewModel.data).then(function (response) {
-            console.log(response);
             if (response.data.success)
                 $scope.passwordSuccessMessage = response.data.message;
             else
                 $scope.passwordFailMessage = response.data.message;
-            
+
             // clear 
             viewModel.data = {};
             $scope.passwordForm.$setUntouched();
