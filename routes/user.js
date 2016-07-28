@@ -4,7 +4,7 @@ var User = require('../models/user');
 function createToken(user) {
     return jwt.sign({
         _id: user._id
-    }, process.env.secretKey, {expiresIn: "2 days"});
+    }, process.env.secretKey, {expiresIn: '2 days'});
 };
 
 module.exports = function (express, passport) {
@@ -24,37 +24,23 @@ module.exports = function (express, passport) {
      * POST register
      */
     api.post('/register', function (request, response) {
-        console.log(request.body)
-        User.findOne({
-            $or: [{ 'username': request.body.username },
-                  { 'email':    request.body.email } ]}, function (error, user) {
-            
-            if (error) return handleError(error);
+        var user = new User({
+            'email':    request.body.email,
+            'password': request.body.password,
+            'type':     'Regular'
+        });
 
-            if (user) {
-                if ( user.username == request.body.username && user.email != request.body.email ) {
-                    response.json({ success: false, message: 'Username is already in use'});
-                } else if ( user.username != request.body.username && user.email == request.body.email ) {
-                    response.json({ success: false, message: 'Email is already in use'});
-                } else if ( user.username == request.body.username && user.email == request.body.email ) {
-                    response.json({ success: false, message: 'Both Username and Email are already in use'});
-                }
-            } else {
-                var user = new User({
-                    'username': request.body.username,
-                    'password': request.body.password,
-                    'email':    request.body.email,
-                    'type':     'Regular'
-                });
-                user.save(function (error) {
-                    if (error) {
-                        response.json({ success: false, message: error});
-                        return;
-                    }
-                    response.json({ success: true, message: 'New user has been created'});
-                });
+        user.name = 'user' + user._id;
+
+        user.save(function (error) {
+            if (error) {
+                if (error.code == "11000")
+                    response.json({ success: false, message: request.body.email + ' is already in use.'});
+                else
+                    response.json({ success: false, message: error});
+                return;
             }
-            return;
+            response.json({ success: true, message: 'New user has been created'});
         });
     });
 
@@ -72,11 +58,11 @@ module.exports = function (express, passport) {
      */
     api.post('/login', function (request, response) {
 
-        User.findOne({ 'username': request.body.username }, function (error, user) {
+        User.findOne({ 'email': request.body.email }, function (error, user) {
             if (error) return handleError(error);
 
             if (!user) {
-                response.json({ success: false, message: 'Username does not exist.'});
+                response.json({ success: false, message: 'Email does not exist.'});
             } else {
                 var validPassword = user.comparePassword(request.body.password);
 				if (!validPassword) {
@@ -129,21 +115,26 @@ module.exports = function (express, passport) {
         User.findOne({_id: request.user._id}, function (error, foundUser) {
             if (error) return handleError(error);
             else {
-                if (!foundUser) response.send({ Error: "Username doesn't exist.", success: false });
+                if (!foundUser) 
+                    response.send({ success: false, message: 'User does not exist.' });
                 else {
-                    if (request.body.email) foundUser.email = request.body.email;
+                    if (request.body.email) 
+                        foundUser.email = request.body.email;
+
+                    if (request.body.name) 
+                        foundUser.name = request.body.name;
                     
                     foundUser.save(function (error, updatedUser) {
                         if (error) {
                             if (error.code == "11000")
-                                response.json({ success: false, message: request.body.email + " is already in use."});
+                                response.json({ success: false, message: request.body.email + ' is already in use.'});
                             else
                                 response.json({ success: false, message: error});
                             return;
                         }
-                        else 
-                            request.user = updatedUser;
-                        response.json({ success: true, message: "User has been updated successfully."});
+                        
+                        request.user = updatedUser;
+                        response.json({ success: true, message: 'User has been updated successfully.'});
                     });
                 }
             }
@@ -157,27 +148,20 @@ module.exports = function (express, passport) {
         User.findOne({_id: request.user._id}, function (error, foundUser) {
             if (error) return handleError(error);
             else {
-                if (!foundUser) response.send({ Error: "Username doesn't exist.", success: false });
+                if (!foundUser) response.send({ success: false, message: 'User does not exist.' });
                 else {
-
                     var validPassword = foundUser.comparePassword(request.body.password);
                     if (validPassword)
                         foundUser.password = request.body.newPassword;
                     else {
-                        response.json({
-                            success: false,
-                            message: "Current password is wrong."
-                        });
+                        response.json({ success: false, message: 'Current password is wrong.' });
                         return;
                     }
 
                     foundUser.save(function (error, updatedUser) {
                         if (error) return handleError(error);
                         else request.user = updatedUser;
-                        response.json({
-                            success: true,
-                            message: "User has been updated successfully."
-                        });
+                        response.json({ success: true, message: 'User has been updated successfully.' });
                     })
                 }
             }

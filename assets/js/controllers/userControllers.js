@@ -42,7 +42,7 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
 app.controller('profileController', ['$scope','$location', '$timeout', 'userFactory', function($scope, $location, $timeout, userFactory) {
     var viewModel = this;
 
-    $scope.username = $scope.$parent.mainCtrl.user.username;
+    $scope.name = $scope.$parent.mainCtrl.user.name;
     $scope.email = $scope.$parent.mainCtrl.user.email;
     
     viewModel.updateProfile = function() {
@@ -50,9 +50,13 @@ app.controller('profileController', ['$scope','$location', '$timeout', 'userFact
         $scope.profileSuccessMessage = "";
         $scope.profileFailMessage = "";
 
-        if ($scope.email != $scope.$parent.mainCtrl.user.email) {
-            data = {"email": $scope.email};
+        if ($scope.email != $scope.$parent.mainCtrl.user.email || 
+            $scope.name != $scope.$parent.mainCtrl.user.name) {
 
+            data = {"email": $scope.email, "name": $scope.name};
+
+            console.log(data);
+            
             userFactory.updateProfile(data).then(function (response) {
             
                 if (response.data.success) {

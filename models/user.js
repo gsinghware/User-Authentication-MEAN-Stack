@@ -6,9 +6,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-    username:   {type: String, unique: true, sparse: true},
-    password:   {type: String},
     email:      {type: String, required: true, unique: true},
+    password:   {type: String},
     name:       {type: String},
     type:       {type: String, enum: ['Admin', 'Regular']},
     facebookID: {type: String, unique: true, sparse: true},

@@ -20,14 +20,11 @@
                 
                 <div class="row">
                     <div class="form-group">
-                        <label for="username" class="col-sm-4 control-label text-right">Username</label>
+                        <label for="name" class="col-sm-4 control-label text-right">Name</label>
                         <div class="col-sm-8">
-                            <input ng-model="username" ng-disabled="mainCtrl.user.username" type="text" class="form-control" name="username" placeholder="Username" ng-minlength="3" ng-maxlength="15" pattern="^[a-zA-Z0-9_]*$" ng-required="true">
-                            <div ng-show="profileForm.$submitted || profileForm.username.$touched">
-                                <p ng-show="profileForm.username.$error.required">Username is required. (3-15)</p>
-                                <p ng-show="profileForm.username.$error.minlength">Username is too short. (3-15)</p>
-                                <p ng-show="profileForm.username.$error.maxlength">Username is too Long. (3-15)</p>
-                                <p ng-show="profileForm.username.$error.pattern">Username must only contain alphanumerics or an underscore</p>
+                            <input type="text" ng-model="name" class="form-control" name="name" ng-required="true">
+                            <div ng-show="profileForm.$submitted">
+                                <p ng-show="profileForm.name.$error.required">Name is required.</p>
                             </div>
                         </div>
                     </div>
