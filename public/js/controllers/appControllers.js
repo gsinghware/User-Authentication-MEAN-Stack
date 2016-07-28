@@ -13,16 +13,19 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
             return viewLocation === $location.path();
         };
 
-        // get current user (visitor/registered user)
+        viewModel.updateUser();
+
+    });
+
+    viewModel.updateUser = function () {
         userFactory.getUser().then(function(user) {
-            console.log(user);
             if (user.data) {
                 viewModel.isLoggedIn = true;
                 viewModel.user = user.data;
             } else
                 viewModel.isLoggedIn = false;
         });
-    });
+    };
 
     viewModel.logoutUser = function() {
         userFactory.logoutUser();

@@ -13,15 +13,6 @@ var userSchema = new Schema({
     type:       {type: String, enum: ['Admin', 'Regular']},
     facebookID: {type: String, unique: true, sparse: true},
 
-    // local: {
-    //     username:   {type: String, sparse: true, unique: true},
-    //     password:   {type: String},
-    //     email:      {type: String, sparse: true, unique: true},
-    // },
-    // facebook: {
-    //     id:         {type: String},
-    //     name:       {type: String}
-    // }
 }, { timestamps: true });
 
 /**   

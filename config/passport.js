@@ -11,28 +11,28 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
 	    clientID:       process.env.FBclientID,
 	    clientSecret:   process.env.FBclientSecret,
-	    callbackURL:    process.env.FBcallbackURL
+	    callbackURL:    process.env.FBcallbackURL,
+        profileFields: ['id', 'emails', 'name']
     }, function(accessToken, refreshToken, profile, done) {
 
-        User.findOne({'facebook.id': profile.id}, function(error, user) {
+        User.findOne({'facebookID': profile.id}, function(error, user) {
 
             if(error) return done(error);
 
             // found the user, return the user
             if(user) return done(null, user);
 
-            console.log(profile);
-
-            // user does not exist, so adding it
-            var newUser = new User();
-            newUser.facebook.id = profile.id;
-            newUser.facebook.name = profile.displayName;
+            // create a new FB user
+            var newUser = new User({
+                'email':        profile.emails[0].value,
+                'facebookID':   profile.id,
+                'name':         profile.name.givenName + " " + profile.name.familyName
+            });
 
             newUser.save(function(error){                
                 if(error) throw error;
                 return done(null, newUser);
             });
         });
-
     }));
 };
