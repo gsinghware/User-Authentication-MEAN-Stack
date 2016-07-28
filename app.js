@@ -51,7 +51,7 @@ require('./config/passport')(passport);
  * routes (POST/GET)
  */
 var userRoutes = require('./routes/user.js')(express, passport);    // user api routes
-app.use('/user', userRoutes);                                       // url: /user/* goes through user routes, ie. user/login, user/register
+app.use('/users', userRoutes);                                       // url: /user/* goes through user routes, ie. user/login, user/register
 
 app.get('*', function(request, response) {              // everything gets rendered on the index page
     response.render('index');

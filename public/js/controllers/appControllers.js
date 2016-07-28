@@ -29,11 +29,11 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
 
     viewModel.logoutUser = function() {
         userFactory.logoutUser();
-        $location.path('user/login');
+        $location.path('users/login');
     };
 
     viewModel.userProfile = function () {
-        $location.path('user/profile');
+        $location.path('users/profile');
     };
 
 }]);

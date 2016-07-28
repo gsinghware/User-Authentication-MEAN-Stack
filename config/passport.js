@@ -26,7 +26,8 @@ module.exports = function(passport) {
             var newUser = new User({
                 'email':        profile.emails[0].value,
                 'facebookID':   profile.id,
-                'name':         profile.name.givenName + " " + profile.name.familyName
+                'name':         profile.name.givenName + " " + profile.name.familyName,
+                'type':     'Regular'
             });
 
             newUser.save(function(error){                

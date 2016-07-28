@@ -30,7 +30,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">User Auth</a>
+                    <a class="navbar-brand" href="/">User Auth</a>
                 </div>
             
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -38,8 +38,9 @@
                     
                     <ul class="nav navbar-nav">
                         <li ng-class="{ active: mainCtrl.isActive('/')}"><a href="/">Home</a></li>
-                        <li ng-class="{ active: mainCtrl.isActive('/user/login')}" ng-if="!mainCtrl.isLoggedIn"><a href="/user/login">Login</a></li>
-                        <li ng-class="{ active: mainCtrl.isActive('/user/register')}" ng-if="!mainCtrl.isLoggedIn"><a href="/user/register">Register</a></li>
+                        <li ng-class="{ active: mainCtrl.isActive('/users')}"><a href="/users">Users</a></li>
+                        <li ng-class="{ active: mainCtrl.isActive('/users/login')}" ng-if="!mainCtrl.isLoggedIn"><a href="/users/login">Login</a></li>
+                        <li ng-class="{ active: mainCtrl.isActive('/users/register')}" ng-if="!mainCtrl.isLoggedIn"><a href="/users/register">Register</a></li>
                     </ul>
 
                     <ul ng-if="mainCtrl.isLoggedIn" class="nav navbar-nav navbar-right">
@@ -77,7 +78,8 @@
         <script src="/js/controllers/userControllers.js"></script>
 
         <!-- Directives -->
-        <script src="/js/directives/ngMatchDirectives.js"></script>
+        <script src="/js/directives/ngMatchDirective.js"></script>
+        <script src="/js/directives/ngUserDirective.js"></script>
 
         <!-- Services -->
         <script src="/js/services/userService.js"></script>

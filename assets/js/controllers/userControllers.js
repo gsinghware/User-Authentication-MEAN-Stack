@@ -1,5 +1,5 @@
 /**
- * Register Controller
+ * Register Controller - register user after the post
  */
 app.controller('registerController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
     var viewModel = this;
@@ -16,7 +16,7 @@ app.controller('registerController', ['$scope','$location', 'userFactory', funct
 }]);
 
 /**
- * Login Controller
+ * Login Controller - login user after the post
  */
 app.controller('loginController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
     var viewModel = this;
@@ -37,6 +37,22 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
 }]);
 
 /**
+ * Users Controller - get all the users and display them
+ */
+app.controller('usersController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
+    var viewModel = this;
+
+    userFactory.getUsers().then(function (users) {
+        if (users.data) {
+            $scope.users = users.data.data;
+        } else {
+            $scope.error = users.data.message;
+        }
+    });
+
+}]);
+
+/**
  * Profile Controller
  */
 app.controller('profileController', ['$scope','$location', '$timeout', 'userFactory', function($scope, $location, $timeout, userFactory) {
@@ -54,8 +70,6 @@ app.controller('profileController', ['$scope','$location', '$timeout', 'userFact
             $scope.name != $scope.$parent.mainCtrl.user.name) {
 
             data = {"email": $scope.email, "name": $scope.name};
-
-            console.log(data);
             
             userFactory.updateProfile(data).then(function (response) {
             

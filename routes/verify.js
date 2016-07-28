@@ -16,7 +16,6 @@ module.exports = function (app) {
      * route to find the logged in user info.
      */
     app.use(function(request, response, next) {
-        console.log("in app use verify");
         var token = request.cookies["access_token"];
         if (token) {
             jwt.verify(token, process.env.secretKey, function (error, user) {
@@ -26,7 +25,6 @@ module.exports = function (app) {
                 } else {
                     User.findOne({ '_id': user._id }, function (error, user) {
                         if (error) return handleError(error);
-                        
                         if (user) {
                             request.user = user;
                         } else {

@@ -10,6 +10,15 @@ function createToken(user) {
 module.exports = function (express, passport) {
 
     var api = express.Router();
+    
+    /**
+     * GET all users
+     */
+    api.get('/all', function(request, response) {
+        User.find({}, function(error, users) {
+            response.json({ data: users});
+        });
+    });
 
     /**
      * GET register
