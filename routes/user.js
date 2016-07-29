@@ -16,7 +16,7 @@ module.exports = function (express, passport) {
      */
     api.get('/all', function(request, response) {
         User.find({}, function(error, users) {
-            response.json({ data: users});
+            response.json(users);
         });
     });
 
@@ -175,6 +175,56 @@ module.exports = function (express, passport) {
                 }
             }
         });
+    });
+
+    api.get('/testusers', function (request, response) {
+        var users = [
+            new User({
+                'name': 'gsinghbox1',
+                'email':    'gsinghbox1@gmail.com',
+                'password': 'testing',
+                'type':     'Admin'
+            }),
+            new User({
+                'name': 'gsinghbox2',
+                'email':    'gsinghbox2@gmail.com',
+                'password': 'testing',
+                'type':     'Regular'
+            }),
+            new User({
+                'name': 'gsinghbox3',
+                'email':    'gsinghbox3@gmail.com',
+                'password': 'testing',
+                'type':     'Regular'
+            }),
+            new User({
+                'name': 'gsinghbox4',
+                'email':    'gsinghbox4@gmail.com',
+                'password': 'testing',
+                'type':     'Regular'
+            }),
+            new User({
+                'name': 'gsinghbox5',
+                'email':    'gsinghbox5@gmail.com',
+                'password': 'testing',
+                'type':     'Regular'
+            })
+        ];
+
+        for (i = 0; i < users.length; i++) {
+        
+            users[i].save(function (error) {
+                if (error) {
+                    if (error.code == "11000")
+                        response.json({ success: false, message: request.body.email + ' is already in use.'});
+                    else
+                        response.json({ success: false, message: error});
+                    return;
+                }
+            });
+            
+        }
+        response.json({ success: true, message: "Test Users have been added" });
     });
                                                 
     return api;

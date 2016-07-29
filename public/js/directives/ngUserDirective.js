@@ -7,11 +7,12 @@ app.directive('ngUser', function () {
     return {
         restrict: 'E',
         scope: {
-            data: '='
+            data: '=',
+            user: '='
         },
         templateUrl: "../../../partials/directives/ngUserDirective.ejs",
         controller: function($scope) {
-            // console.log($scope.data);
+            // console.log($scope.user);
         },
         link: function (scope, element, attributes) {
             element.click(function () {

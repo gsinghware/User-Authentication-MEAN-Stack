@@ -1,6 +1,7 @@
 <div class="col-sm-3">
     <div class="panel panel-default">
         <div class="panel-body">
+            <span ng-if="user.type == 'Admin'" class="pull-right glyphicon glyphicon-edit"></span>
             <h5>{{ data.name }}</h5>
             <h6>{{ data.email }}</h6>
             <h6>Type: {{ data.type }}</h6>

@@ -2,7 +2,7 @@
  * Main Controller (Most Outter Controller)
  */
 
-app.controller('mainController', ['$rootScope', '$location', 'userFactory', function($rootScope, $location, userFactory) {
+app.controller('mainController', ['$scope', '$rootScope', '$location', 'userFactory', function($scope, $rootScope, $location, userFactory) {
     var viewModel = this;
 
     // $routeChangeStart callback is executed every time route changes
@@ -22,8 +22,11 @@ app.controller('mainController', ['$rootScope', '$location', 'userFactory', func
             if (user.data) {
                 viewModel.isLoggedIn = true;
                 viewModel.user = user.data;
-            } else
+                $scope.user = user.data;
+            } else {
                 viewModel.isLoggedIn = false;
+                $scope.user = false;
+            }
         });
     };
 

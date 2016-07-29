@@ -9,7 +9,7 @@ var userSchema = new Schema({
     email:      {type: String, required: true, unique: true},
     password:   {type: String},
     name:       {type: String},
-    type:       {type: String, enum: ['Admin', 'Regular']},
+    type:       {type: String},
     facebookID: {type: String, unique: true, sparse: true},
 
 }, { timestamps: true });
