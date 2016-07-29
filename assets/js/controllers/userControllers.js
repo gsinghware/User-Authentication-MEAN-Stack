@@ -43,13 +43,13 @@ app.controller('usersController', ['$scope','$location', 'userFactory', function
     var viewModel = this;
 
     userFactory.getUsers().then(function (users) {
-        
         if (users.data) {
             $scope.users = users.data;
         } else {
             $scope.error = users.data.message;
         }
     });
+
 
     viewModel.isLoggedIn = $scope.$parent.mainCtrl.isLoggedIn;
 

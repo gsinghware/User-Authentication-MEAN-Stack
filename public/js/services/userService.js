@@ -25,11 +25,11 @@ app.factory('userFactory', ['$http', '$cookies', '$window', function($http, $coo
     };
 
     userFactory.getUser = function () {
-        return $http.get('/users/me');
+        return $http.get('/users/profile/json');
     };
 
     userFactory.getUsers = function () {
-        return $http.get('/users/all');
+        return $http.get('/users/json');
     };
 
     // need to use window because need to connect to facebook server

@@ -10,18 +10,25 @@ function createToken(user) {
 module.exports = function (express, passport) {
 
     var api = express.Router();
-    
+
     /**
-     * GET all users
+     * GET users render page
      */
-    api.get('/all', function(request, response) {
+    api.get('/', function(request, response) {
+        response.render('index');
+    });
+
+    /**
+     * GET users json
+     */
+    api.get('/json', function(request, response) {
         User.find({}, function(error, users) {
             response.json(users);
         });
     });
 
     /**
-     * GET register
+     * GET register render page
      */
     api.get('/register', function (request, response) {
         if (request.user)
@@ -54,7 +61,7 @@ module.exports = function (express, passport) {
     });
 
     /**
-     * GET login
+     * GET login render page
      */
     api.get('/login', function (request, response) {
         if (request.user)
@@ -85,7 +92,7 @@ module.exports = function (express, passport) {
     });
 
     /**
-     * GET profile
+     * GET profile render page
      */
     api.get('/profile', function (request, response) {
         if (!request.user)
@@ -94,9 +101,9 @@ module.exports = function (express, passport) {
     });
 
     /**
-     * GET user
+     * GET user json
      */
-    api.get('/me', function (request, response) {
+    api.get('/profile/json', function (request, response) {
         return response.json(request.user);
     });
 
