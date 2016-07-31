@@ -28,6 +28,10 @@ app.factory('userFactory', ['$http', '$cookies', '$window', function($http, $coo
         return $http.get('/users/profile/json');
     };
 
+    userFactory.getUser = function (id) {
+        return $http.get('/users/' + id + '.json');
+    };
+
     userFactory.getUsers = function () {
         return $http.get('/users/json');
     };

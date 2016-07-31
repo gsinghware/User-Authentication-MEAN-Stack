@@ -233,7 +233,46 @@ module.exports = function (express, passport) {
         }
         response.json({ success: true, message: "Test Users have been added" });
     });
-                                                
+    
+
+    /**
+     * GET users info in json format
+     */
+    api.get('/:userID.json', function(request, response) {
+
+        var userID = (request.params.userID == undefined) ? null : request.params.userID;
+        var userName = (request.params.userName == undefined) ? null : request.params.userName;
+
+        User.findOne({ '_id': userID }, function (error, user) {
+            if (user) {
+                response.json({ success: true, data: user});
+            } else {
+                // TODO: forward to page showing user doesn't exist...
+                response.json({ success: false, data: user, error: error});
+            }
+        });
+
+    });
+
+    // /**
+    //  * GET users render page
+    //  */
+    // api.get('/:userID?', function(request, response) {
+    //     console.log("optional parameter /:userID?");
+    //     var userID = (request.params.userID == undefined) ? null : request.params.userID;
+    //     console.log(api.get('/users/' + userID + '.json'));
+    //     response.json({ success: true, message: "Testing" });
+    // });
+
+    // /**
+    //  * GET users render page
+    //  */
+    // api.get('/:userID?/:userName', function(request, response) {
+    //     console.log("optional parameter /:userID?/:userName");
+    //     // response.render('index');
+    // });
+    
+    
     return api;
 
 };

@@ -7,7 +7,7 @@ app.controller('mainController', ['$scope', '$rootScope', '$location', 'userFact
 
     // $routeChangeStart callback is executed every time route changes
     $rootScope.$on('$routeChangeStart', function(e, next, previous) {
-        
+
         // navbar isActive class function
         viewModel.isActive = function (viewLocation) {
             return viewLocation === $location.path();

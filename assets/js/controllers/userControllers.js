@@ -43,6 +43,7 @@ app.controller('usersController', ['$scope','$location', 'userFactory', function
     var viewModel = this;
 
     userFactory.getUsers().then(function (users) {
+        console.log(users);
         if (users.data) {
             $scope.users = users.data;
         } else {
@@ -53,6 +54,29 @@ app.controller('usersController', ['$scope','$location', 'userFactory', function
 
     viewModel.isLoggedIn = $scope.$parent.mainCtrl.isLoggedIn;
 
+}]);
+
+/**
+ * User Controller - get all the users and display them
+ */
+app.controller('userController', ['$scope', '$routeParams', '$location', 'userFactory', function($scope, $routeParams, $location, userFactory) {
+    var viewModel = this;
+
+    console.log($routeParams.userID);
+
+    userFactory.getUser($routeParams.userID).then(function (user) {
+        console.log(user);
+        if (user.data.success) {
+            $scope.name = user.data.data.name;
+            $scope.email = user.data.data.email;
+            $scope.type = user.data.data.type;
+        } else {
+            // TODO: figure out what to do if server didn't find the user
+            console.log("did not find the user");
+        }
+    });
+
+    viewModel.isLoggedIn = $scope.$parent.mainCtrl.isLoggedIn;
 }]);
 
 /**

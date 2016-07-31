@@ -24,12 +24,14 @@ var app = angular.module('UserAuth', ['ngRoute', 'ngCookies']);
 // $locationProvider - Removing the fragment identifier from AngularJS urls (# symbol)
 app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
 
-    $routeProvider.when('/', {title : 'UserAuth', templateUrl: 'partials/home.ejs' });
-    $routeProvider.when('/users', {title : 'Users - UserAuth', templateUrl: 'partials/users.ejs' });
-    $routeProvider.when('/users/login', {title : 'Login - UserAuth', templateUrl: 'partials/login.ejs' });
-    $routeProvider.when('/users/register', {title : 'Register - UserAuth', templateUrl: 'partials/register.ejs' });
-    $routeProvider.when('/users/profile', {title : 'Profile - UserAuth',templateUrl: 'partials/profile.ejs'});
-    $routeProvider.when('/404', {templateUrl: 'partials/404.ejs'});
+    $routeProvider.when('/',                            {title : 'UserAuth',            templateUrl: 'partials/home.ejs' });
+    $routeProvider.when('/users',                       {title : 'Users - UserAuth',    templateUrl: 'partials/users.ejs' });
+    $routeProvider.when('/users/login',                 {title : 'Login - UserAuth',    templateUrl: 'partials/login.ejs' });
+    $routeProvider.when('/users/register',              {title : 'Register - UserAuth', templateUrl: 'partials/register.ejs' });
+    $routeProvider.when('/users/profile',               {title : 'Profile - UserAuth',  templateUrl: 'partials/profile.ejs'});
+    $routeProvider.when('/users/:userID?',              {title : 'Users - UserAuth',    templateUrl: 'partials/user.ejs' });
+    $routeProvider.when('/users/:userID?/:userName?',   {title : 'Users - UserAuth',    templateUrl: 'partials/user.ejs' });
+    $routeProvider.when('/404',                         {title : '404 - UserAuth',      templateUrl: 'partials/404.ejs'});
     $routeProvider.otherwise('/404');
 
     $locationProvider.html5Mode({
