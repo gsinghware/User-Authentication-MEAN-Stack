@@ -24,11 +24,13 @@ app.factory('userFactory', ['$http', '$cookies', '$window', function($http, $coo
         $cookies.put('access_token', token);
     };
 
-    userFactory.getUser = function () {
+    userFactory.getSessionUser = function () {
+        console.log("here two");
         return $http.get('/users/profile/json');
     };
 
     userFactory.getUser = function (id) {
+        console.log("here three");
         return $http.get('/users/' + id + '.json');
     };
 

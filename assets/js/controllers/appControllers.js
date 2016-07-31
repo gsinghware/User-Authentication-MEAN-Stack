@@ -18,7 +18,8 @@ app.controller('mainController', ['$scope', '$rootScope', '$location', 'userFact
     });
 
     viewModel.updateUser = function () {
-        userFactory.getUser().then(function(user) {
+        userFactory.getSessionUser().then(function(user) {
+            console.log(user);
             if (user.data) {
                 viewModel.isLoggedIn = true;
                 viewModel.user = user.data;

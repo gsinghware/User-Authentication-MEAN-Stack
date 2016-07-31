@@ -27,6 +27,7 @@ app.controller('loginController', ['$scope','$location', 'userFactory', function
 
     viewModel.login = function() {
         userFactory.loginUser(viewModel.data).then(function (response) {
+            console.log(response);
             if (response.data.success) {
                 $location.path('/');
             } else {

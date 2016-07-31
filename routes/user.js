@@ -76,7 +76,7 @@ module.exports = function (express, passport) {
 
         User.findOne({ 'email': request.body.email }, function (error, user) {
             if (error) return handleError(error);
-
+            
             if (!user) {
                 response.json({ success: false, message: 'Email does not exist.'});
             } else {
@@ -104,6 +104,7 @@ module.exports = function (express, passport) {
      * GET user json
      */
     api.get('/profile/json', function (request, response) {
+        console.log("profile json", request.user);
         return response.json(request.user);
     });
 
