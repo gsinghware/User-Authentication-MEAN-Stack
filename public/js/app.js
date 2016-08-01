@@ -2,7 +2,7 @@
  * Routing
  */
 
-// after facebook login, the location needs to be redirected to "#_=_"
+// after facebook login, the location needs to be redirected from "#_=_" to "home"
 if (window.location.hash && window.location.hash === "#_=_") {
     if (window.history && history.pushState) {
         window.history.pushState("", document.title, window.location.pathname);
@@ -28,6 +28,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider', function($ro
     $routeProvider.when('/users',                       {title : 'Users - UserAuth',    templateUrl: 'partials/users.ejs' });
     $routeProvider.when('/users/login',                 {title : 'Login - UserAuth',    templateUrl: 'partials/login.ejs' });
     $routeProvider.when('/users/register',              {title : 'Register - UserAuth', templateUrl: 'partials/register.ejs' });
+    $routeProvider.when('/users/forgetpassword',        {title : 'Forget Password? - UserAuth',    templateUrl: 'partials/forgetPassword.ejs' });
     $routeProvider.when('/users/profile',               {title : 'Profile - UserAuth',  templateUrl: 'partials/profile.ejs'});
     $routeProvider.when('/users/:userID?',              {title : 'Users - UserAuth',    templateUrl: 'partials/user.ejs' });
     $routeProvider.when('/users/:userID?/:userName?',   {title : 'Users - UserAuth',    templateUrl: 'partials/user.ejs' });

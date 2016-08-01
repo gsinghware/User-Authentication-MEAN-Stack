@@ -52,11 +52,21 @@ app.controller('usersController', ['$scope','$location', 'userFactory', function
         }
     });
 
+    $scope.testUser = function() {
+        console.log("you clicked here");
+    };
 
     viewModel.isLoggedIn = $scope.$parent.mainCtrl.isLoggedIn;
 
 }]);
 
+/**
+ * Forget Password Controller - get all the users and display them
+ */
+app.controller('forgetPassController', ['$scope','$location', 'userFactory', function($scope, $location, userFactory) {
+    var viewModel = this;
+
+}]);
 /**
  * User Controller - get all the users and display them
  */
@@ -66,7 +76,6 @@ app.controller('userController', ['$scope', '$routeParams', '$location', 'userFa
     console.log($routeParams.userID);
 
     userFactory.getUser($routeParams.userID).then(function (user) {
-        console.log(user);
         if (user.data.success) {
             $scope.name = user.data.data.name;
             $scope.email = user.data.data.email;
@@ -77,7 +86,14 @@ app.controller('userController', ['$scope', '$routeParams', '$location', 'userFa
         }
     });
 
+    $scope.testUser = function() {
+        console.log("you clicked here");
+    };
+
+    viewModel.editUser = false;
+
     viewModel.isLoggedIn = $scope.$parent.mainCtrl.isLoggedIn;
+
 }]);
 
 /**

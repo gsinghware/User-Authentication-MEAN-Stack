@@ -1,7 +1,7 @@
 <div class="col-sm-3">
     <div class="panel panel-default">
         <div class="panel-body">
-            <span ng-if="user.type == 'Admin'" class="pull-right glyphicon glyphicon-edit"></span>
+            <span ng-if="user.type == 'Admin'" ng-click="testUser()" class="pull-right glyphicon glyphicon-remove-circle"></span>
             <h5><a href="users/{{ data._id }}">{{ data.name }}</a></h5>
             <h6>{{ data.email }}</h6>
             <h6>Type: {{ data.type }}</h6>

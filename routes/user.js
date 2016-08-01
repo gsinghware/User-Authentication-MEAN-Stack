@@ -104,7 +104,6 @@ module.exports = function (express, passport) {
      * GET user json
      */
     api.get('/profile/json', function (request, response) {
-        console.log("profile json", request.user);
         return response.json(request.user);
     });
 
@@ -124,6 +123,15 @@ module.exports = function (express, passport) {
             response.redirect('/');
         }
     );
+
+    /**
+     * GET forget password
+     */
+    api.get('/forgetpassword', function (request, response) {
+        if (request.user)
+            return response.redirect('/');
+        response.render('index');
+    });
 
     /**
      * POST update Profile

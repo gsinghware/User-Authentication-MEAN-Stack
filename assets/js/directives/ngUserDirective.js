@@ -15,8 +15,8 @@ app.directive('ngUser', function () {
             // console.log($scope.user);
         },
         link: function (scope, element, attributes) {
-            element.click(function () {
-                // alert('clicked');
+            element.click(function (e) {
+                console.log(e);
             });
         }
     };

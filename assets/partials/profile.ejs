@@ -1,129 +1,142 @@
 <div class="container" ng-controller="profileController as profileCtrl">
     <div class="row col-sm-6">
+        <div class="panel panel-default">
+                    
+            <div class="panel-heading">
+                <h3 class="panel-title">Profile</h3>
+            </div>
+            
+            <div class="panel-body">
 
-        <div class="control-group">
-            <form method="POST" role="form" name="profileForm" ng-submit="profileForm.$valid && profileCtrl.updateProfile()" novalidate="">
+                <div class="control-group">
+                    <form method="POST" role="form" name="profileForm" ng-submit="profileForm.$valid && profileCtrl.updateProfile()" novalidate="">
 
-                <!-- form post success message -->
-                <div class="alert alert-success fade in" ng-hide="!profileSuccessMessage">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Success!</strong> {{ profileSuccessMessage }}
-                </div>
-                
-                <!-- form post fail message -->
-                <div class="alert alert-warning fade in" ng-hide="!profileFailMessage">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Warning!</strong> {{ profileFailMessage }}
-                </div>
+                        <!-- form post success message -->
+                        <div class="alert alert-success fade in" ng-hide="!profileSuccessMessage">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Success!</strong> {{ profileSuccessMessage }}
+                        </div>
+                        
+                        <!-- form post fail message -->
+                        <div class="alert alert-warning fade in" ng-hide="!profileFailMessage">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Warning!</strong> {{ profileFailMessage }}
+                        </div>
 
-                <legend>Profile</legend>
-                
-                <div class="row">
-                    <div class="form-group">
-                        <label for="name" class="col-sm-4 control-label text-right">Name</label>
-                        <div class="col-sm-8">
-                            <input type="text" ng-model="name" class="form-control" name="name" ng-required="true">
-                            <div ng-show="profileForm.$submitted">
-                                <p ng-show="profileForm.name.$error.required">Name is required.</p>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-4 control-label text-right">Name</label>
+                                <div class="col-sm-8">
+                                    <input type="text" ng-model="name" class="form-control" name="name" ng-required="true">
+                                    <div ng-show="profileForm.$submitted">
+                                        <p ng-show="profileForm.name.$error.required">Name is required.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="email" class="col-sm-4 control-label text-right">Email</label>
-                        <div class="col-sm-8">
-                            <input type="email" ng-model="email" class="form-control" name="email" ng-required="true">
-                            <div ng-show="profileForm.$submitted">
-                                <p ng-show="profileForm.email.$error.required">Email is required.</p>
-                                <p ng-show="profileForm.$error.email">Enter valid email address.</p>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="email" class="col-sm-4 control-label text-right">Email</label>
+                                <div class="col-sm-8">
+                                    <input type="email" ng-model="email" class="form-control" name="email" ng-required="true">
+                                    <div ng-show="profileForm.$submitted">
+                                        <p ng-show="profileForm.email.$error.required">Email is required.</p>
+                                        <p ng-show="profileForm.$error.email">Enter valid email address.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="emptySpace" class="col-sm-4"></label>
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary">Update Profile</button>
-                        </div>
-                    </div>
-                </div>
-                
-            </form>
-        </div> <!-- end control group -->
-
-        <div class="control-group">
-            <form method="POST" role="form" name="passwordForm" ng-submit="passwordForm.$valid && profileCtrl.updatePassword()">
-
-                <!-- form post success message -->
-                <div class="alert alert-success fade in" ng-hide="!passwordSuccessMessage">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Success!</strong> {{ passwordSuccessMessage }}
-                </div>
-
-                <!-- form post fail message -->
-                <div class="alert alert-warning fade in" ng-hide="!passwordFailMessage">
-                    <a href="#" class="close" data-dismiss="alert">&times;</a>
-                    <strong>Warning!</strong> {{ passwordFailMessage }}
-                </div>
-                
-                <legend>Change Password</legend>
-
-                <div class="row">
-                    <div class="form-group">
-                        <label for="curPassword" class="col-sm-4 control-label text-right">Current Password</label>
-                        <div class="col-sm-8">
-                            <input ng-model="profileCtrl.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
-                            <div ng-show="passwordForm.$submitted">
-                                <p ng-show="passwordForm.password.$error.required">Password is required.</p>
-                                <p ng-show="passwordForm.password.$error.minlength">Password must be 6 or more characters long.</p>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="emptySpace" class="col-sm-4"></label>
+                                <div class="col-sm-8">
+                                    <button type="submit" class="btn btn-primary">Update Profile</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        
+                    </form>
+                </div> <!-- end control group -->
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="newPassword" class="col-sm-4 control-label text-right">New Password</label>
-                        <div class="col-sm-8">
-                            <input ng-model="profileCtrl.data.newPassword" type="password" class="form-control" name="newPassword" placeholder="New Password" ng-minlength="6" ng-required="true">
-                            <div ng-show="passwordForm.$submitted">
-                                <p ng-show="passwordForm.newPassword.$error.required">Password is required.</p>
-                                <p ng-show="passwordForm.newPassword.$error.minlength">Password must be 6 or more characters long.</p>
+        <div class="panel panel-default">
+                    
+            <div class="panel-heading">
+                <h3 class="panel-title">Change Password</h3>
+            </div>
+            
+            <div class="panel-body">
+                <div class="control-group">
+                    <form method="POST" role="form" name="passwordForm" ng-submit="passwordForm.$valid && profileCtrl.updatePassword()">
+
+                        <!-- form post success message -->
+                        <div class="alert alert-success fade in" ng-hide="!passwordSuccessMessage">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Success!</strong> {{ passwordSuccessMessage }}
+                        </div>
+
+                        <!-- form post fail message -->
+                        <div class="alert alert-warning fade in" ng-hide="!passwordFailMessage">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <strong>Warning!</strong> {{ passwordFailMessage }}
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="curPassword" class="col-sm-4 control-label text-right">Current Password</label>
+                                <div class="col-sm-8">
+                                    <input ng-model="profileCtrl.data.password" type="password" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-required="true">
+                                    <div ng-show="passwordForm.$submitted">
+                                        <p ng-show="passwordForm.password.$error.required">Password is required.</p>
+                                        <p ng-show="passwordForm.password.$error.minlength">Password must be 6 or more characters long.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="confirmNewPassword" class="col-sm-4 control-label text-right">Confirm New Password</label>
-                        <div class="col-sm-8">
-                            <input ng-model="profileCtrl.data.confirmNewPassword" type="password" class="form-control" name="confirmNewPassword" ng-Match="profileCtrl.data.newPassword" placeholder="Confirm New Password" ng-minlength="6" ng-required="true">
-                            <div ng-show="passwordForm.$submitted">
-                                <p ng-show="passwordForm.confirmNewPassword.$error.required">Password is required.</p>
-                                <p ng-show="passwordForm.confirmNewPassword.$error.minlength">Password must be 6 or more characters long.</p>
-                                <p ng-show="passwordForm.$error.ngMatch">Passwords do not match.</p>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="newPassword" class="col-sm-4 control-label text-right">New Password</label>
+                                <div class="col-sm-8">
+                                    <input ng-model="profileCtrl.data.newPassword" type="password" class="form-control" name="newPassword" placeholder="New Password" ng-minlength="6" ng-required="true">
+                                    <div ng-show="passwordForm.$submitted">
+                                        <p ng-show="passwordForm.newPassword.$error.required">Password is required.</p>
+                                        <p ng-show="passwordForm.newPassword.$error.minlength">Password must be 6 or more characters long.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="confirmNewPassword" class="col-sm-4 control-label text-right">Confirm New Password</label>
+                                <div class="col-sm-8">
+                                    <input ng-model="profileCtrl.data.confirmNewPassword" type="password" class="form-control" name="confirmNewPassword" ng-Match="profileCtrl.data.newPassword" placeholder="Confirm New Password" ng-minlength="6" ng-required="true">
+                                    <div ng-show="passwordForm.$submitted">
+                                        <p ng-show="passwordForm.confirmNewPassword.$error.required">Password is required.</p>
+                                        <p ng-show="passwordForm.confirmNewPassword.$error.minlength">Password must be 6 or more characters long.</p>
+                                        <p ng-show="passwordForm.$error.ngMatch">Passwords do not match.</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="emptySpace" class="col-sm-4"></label>
-                        <div class="col-sm-8">
-                            <button type="submit" class="btn btn-primary ">Update Password</button>
                         </div>
-                    </div>
-                </div>
 
-            </form>
-        </div> <!-- end control group -->
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="emptySpace" class="col-sm-4"></label>
+                                <div class="col-sm-8">
+                                    <button type="submit" class="btn btn-primary ">Update Password</button>
+                                </div>
+                            </div>
+                        </div>
 
+                    </form>
+                </div> <!-- end control group -->
+            </div>
+        </div>
     </div> <!-- end outter row -->
 </div> <!-- end container -->
